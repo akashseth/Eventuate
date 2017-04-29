@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_edit_expenditure"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bhumca2017.eventuate.EditExpenditure"
+    tools:showIn="@layout/activity_edit_expenditure">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/remainingbudget"/>
+
+        <RelativeLayout
+            android:id="@+id/initiallysetbudget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/initiallysetbudget_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Total Event Budget : "
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/totalbudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xxxxxxxx"
+                android:textSize="18sp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/remainingbudget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/remainingbudget_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Budget Left : "
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/leftbudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xxxxxxxx"
+                android:textSize="18sp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <Button
+                android:id="@+id/viewExpenditure_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="VIEW EXPENDITURE"
+                android:padding="10dp"
+                android:background="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="5dp"
+                android:onClick="viewExpenditure"/>
+
+            <Button
+                android:id="@+id/addExpenditure_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="ADD EXPENDITURE"
+                android:padding="10dp"
+                android:background="#aaff99"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:onClick="addExpenditure"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/expenditure_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Expenditure List"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+
+        <ListView
+            android:id="@+id/expendituredetails_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+
+    </LinearLayout>
+
+</RelativeLayout>

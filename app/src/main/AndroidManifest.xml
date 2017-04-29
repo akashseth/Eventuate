@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bhumca2017.eventuate">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/applogo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".NewUserRegister"
+            android:label="@string/title_activity_new_user_register"
+            android:parentActivityName=".Login"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bhumca2017.eventuate.Login" />
+        </activity>
+        <activity
+            android:name=".EmailVerification"
+            android:label="@string/title_activity_email_verification"
+            android:parentActivityName=".NewUserRegister">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bhumca2017.eventuate.NewUserRegister" />
+        </activity>
+        <activity
+            android:name=".EditProfileOrganizer"
+            android:label="@string/title_activity_edit_profile_organizer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditEventDetails"
+            android:label="@string/title_activity_edit_event_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Feedbacks"
+            android:label="@string/title_activity_feedbacks"
+            android:parentActivityName=".Drawer"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bhumca2017.eventuate.Drawer" />
+        </activity>
+        <activity
+            android:name=".AboutUs"
+            android:label="@string/title_activity_about_us"
+            android:parentActivityName=".Drawer"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bhumca2017.eventuate.Drawer" />
+        </activity>
+        <activity
+            android:name=".Drawer"
+            android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SigningIn" />
+        <activity
+            android:name=".EditExpenditure"
+            android:label="@string/title_activity_edit_expenditure"
+            android:parentActivityName=".Drawer"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bhumca2017.eventuate.Drawer" />
+        </activity>
+        <activity
+            android:name=".EditSelectedExpenditure"
+            android:label="@string/title_activity_edit_selected_expenditure"
+            android:parentActivityName=".EditExpenditure"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bhumca2017.eventuate.EditExpenditure" />
+        </activity>
+        <activity
+            android:name=".MyBookings"
+            android:label="@string/title_activity_my_bookings"
+            android:parentActivityName=".Drawer"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bhumca2017.eventuate.Drawer" />
+        </activity>
+
+        <!--   services   -->
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".DashboardActivity"/>
+        <activity android:name=".ServicesAvailabilitiesActivity" />
+        <activity android:name=".EditAvailabilitiesActivity"
+            android:windowSoftInputMode="stateHidden"  >
+        </activity>
+        <activity android:name=".AddAvailabilityImageActivity"></activity>
+        <activity android:name=".AddAvailabilitiesActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".ServicesBookedActivity"
+            android:label="@string/title_activity_services_booked_details"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".TransactionActivity" />
+        <activity android:name=".EditProfileServicesActivity"
+            android:windowSoftInputMode="stateHidden"/>
+    </application>
+
+</manifest>

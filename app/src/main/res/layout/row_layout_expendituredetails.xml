@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="50dp" android:weightSum="20"
+    android:background="@color/button_normal">
+
+    <TextView
+        android:id="@+id/expenditureDate"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Date"
+        android:textSize="14sp"
+        android:layout_weight="4"
+        android:textAlignment="center"
+        android:paddingTop="@dimen/activity_vertical_margin"/>
+
+    <TextView
+        android:id="@+id/expenditureAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Amount"
+        android:textSize="14sp"
+        android:layout_weight="4"
+        android:textAlignment="center"
+        android:paddingTop="@dimen/activity_vertical_margin"/>
+
+    <TextView
+        android:id="@+id/expenditureDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Details"
+        android:textSize="14sp"
+        android:layout_weight="10"
+        android:textAlignment="center"
+        android:paddingTop="@dimen/activity_vertical_margin"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/expenditureEdit_button"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:text="EDIT"
+            android:scaleType="centerInside"
+            android:background="#00ff00"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/expenditureDelete_button"
+            android:layout_below="@id/expenditureEdit_button"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:text="DELETE"
+            android:scaleType="centerInside"
+            android:background="#ff0000"
+            android:layout_weight="1"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

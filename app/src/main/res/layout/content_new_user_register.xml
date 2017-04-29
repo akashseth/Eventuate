@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_new_user_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bhumca2017.eventuate.NewUserRegister"
+    tools:showIn="@layout/activity_new_user_register">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select User Type :"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"/>
+
+            <RadioGroup
+                android:id="@+id/user_type_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/activity_vertical_margin">
+
+                <RadioButton
+                        android:id="@+id/button_usertype_organizer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Organizer"
+                        android:textSize="18sp"/>
+
+                <RadioButton
+                    android:id="@+id/button_usertype_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:hint="Service"
+                    android:textSize="18sp"/>
+
+             </RadioGroup>
+
+        <EditText
+            android:id="@+id/newuser_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:hint="Email"
+            android:maxLines="1"
+            android:inputType="textEmailAddress"/>
+
+        <Button
+            android:id="@+id/button_newuserregister"
+            style="?android:textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="REGISTER"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:onClick="verifyEmail"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

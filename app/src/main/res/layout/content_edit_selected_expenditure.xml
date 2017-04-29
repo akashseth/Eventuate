@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_edit_selected_expenditure"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bhumca2017.eventuate.EditSelectedExpenditure"
+    tools:showIn="@layout/activity_edit_selected_expenditure">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date :"
+                android:textSize="18sp"
+                android:layout_alignParentLeft="true"
+                android:paddingTop="@dimen/activity_vertical_margin" />
+
+            <EditText
+                android:id="@+id/expenditureDate_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:hint="dd-mm-yyyy"
+                android:inputType="date"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount :"
+                android:textSize="18sp"
+                android:layout_alignParentLeft="true"
+                android:paddingTop="@dimen/activity_vertical_margin" />
+
+            <EditText
+                android:id="@+id/expenditureAmount_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:hint="Amount here"
+                android:inputType="number"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/details_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Details :"
+                android:textSize="18sp"
+                android:layout_alignParentLeft="true"
+                android:paddingTop="@dimen/activity_vertical_margin" />
+
+            <EditText
+                android:id="@+id/expenditureDetails_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_txt"
+                android:hint="Details here"
+                android:inputType="text"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_gravity="center_horizontal"
+            android:hint="SUBMIT"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:onClick="submit"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

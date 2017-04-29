@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_editprofileorganizer"
+            android:title="Edit Profile"
+            android:icon="@drawable/edit"/>
+        <item
+            android:id="@+id/nav_editeventdetails"
+            android:title="Edit Event Details"
+            android:icon="@drawable/edit"/>
+        <item
+            android:id="@+id/nav_editexpenditure"
+            android:title="Edit/View Expenditure"
+            android:icon="@drawable/remainingbudget"/>
+        <item
+            android:id="@+id/nav_mybookings"
+            android:title="My Bookings"
+            android:icon="@drawable/mybookings" />
+        <item
+            android:id="@+id/nav_sendinvitations"
+            android:title="Invite Guests"
+            android:icon="@drawable/invite"/>
+        <item
+            android:id="@+id/nav_aboutus"
+            android:title="Contact Us"
+            android:icon="@drawable/aboutus"/>
+        <item
+            android:id="@+id/nav_signout"
+            android:title="Sign Out"
+            android:icon="@drawable/signout" />
+
+    </group>
+
+</menu>

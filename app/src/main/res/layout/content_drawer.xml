@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bhumca2017.eventuate.Drawer"
+    tools:showIn="@layout/app_bar_drawer">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="EVENT DETAILS"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:id="@+id/dashboard_eventdetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:id="@+id/layout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/dashboard_eventtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/dashboard_eventtype_image"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/applogo"/>
+
+                    <TextView
+                        android:id="@+id/dashboard_eventtype_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Event Type"
+                        android:textSize="18sp"
+                        android:layout_toRightOf="@id/dashboard_eventtype_image"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/dashboard_eventtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/dashboard_eventtype">
+
+                    <ImageView
+                        android:id="@+id/dashboard_eventtime_image"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/eventtime"/>
+
+                    <TextView
+                        android:id="@+id/dashboard_eventtime_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Event Time"
+                        android:textSize="18sp"
+                        android:layout_toRightOf="@id/dashboard_eventtime_image"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/dashboard_eventdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/dashboard_eventdate_image"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/eventdate"/>
+
+                    <TextView
+                        android:id="@+id/dashboard_eventdate_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Event Date"
+                        android:textSize="18sp"
+                        android:layout_toRightOf="@id/dashboard_eventdate_image"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/dashboard_eventremainingbudget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/dashboard_eventdate">
+
+                    <ImageView
+                        android:id="@+id/dashboard_eventremainingbudget_image"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/remainingbudget"/>
+
+                    <TextView
+                        android:id="@+id/dashboard_eventremainingbudget_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Budget Left"
+                        android:textSize="18sp"
+                        android:layout_toRightOf="@id/dashboard_eventremainingbudget_image"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SERVICES"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingTop="20dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:weightSum="3">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/dashboard_service_hotelsrestaurants_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/restaurants"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hotels n Restaurants"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"
+                        android:layout_below="@id/dashboard_service_hotelsrestaurants_button"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/dashboard_service_banquettelawns_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/lawns"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Banquettes n Lawns"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"
+                        android:layout_below="@id/dashboard_service_banquettelawns_button"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/dashboard_service_lodge_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/restroom"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lodging n Restrooms"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"
+                        android:layout_below="@id/dashboard_service_lodge_button"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:weightSum="3">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageButton
+                        android:id="@+id/dashboard_service_videophotography_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/video"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Video n Still\nPhotography"
+                        android:textAlignment="center"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/dashboard_service_videophotography_button"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/dashboard_service_travel_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/travel"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Travel"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"
+                        android:layout_below="@id/dashboard_service_travel_button"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/dashboard_service_catering_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/catering"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Catering"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"
+                        android:layout_below="@id/dashboard_service_catering_button"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:weightSum="3">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/dashboard_service_tenting_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/tenting"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tenting"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"
+                        android:layout_below="@id/dashboard_service_tenting_button"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/dashboard_service_decoration_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/decorator"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Decoration"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"
+                        android:layout_below="@id/dashboard_service_decoration_button"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/dashboard_service_miscellaneous_button"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/miscellaneous"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:background="@color/button_normal"
+                        android:onClick="displayServiceProviderList"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Miscellaneous"
+                        android:textAlignment="center"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/dashboard_service_miscellaneous_button"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/dashboard_service_onlineshopping_button"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/onlineshopping"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop"
+                    android:background="@color/button_normal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Online Shopping"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"
+                    android:layout_below="@id/dashboard_service_onlineshopping_button"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/dashboard_eventsuccess_button"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:textSize="18sp"
+                android:text="EVENT SUCCESS"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
+                android:onClick="eventSuccess"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

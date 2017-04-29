@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bhumca2017.eventuate.EditEventDetails"
+    tools:showIn="@layout/activity_edit_event_details"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/youreventtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="Your Event : "
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/eventtype"
+                android:layout_toRightOf="@id/youreventtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="No event selected"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button_selecteventtype"
+                android:layout_below="@id/youreventtext"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="SELECT EVENT"
+                android:onClick="selectEvent"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/selecteventtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Event : "
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <RadioGroup
+                android:id="@+id/radio_button_eventtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <RadioButton
+                    android:id="@+id/radio_button_wedding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Wedding"
+                    android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radio_button_ringceremony"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Ring Ceremony"
+                    android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radio_button_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Birthday Celebration"
+                    android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radio_button_party"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Party"
+                    android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radio_button_fest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Fest"
+                    android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radio_button_businessmeet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Business Meet"
+                    android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radio_button_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Show or Concert"
+                    android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radio_button_snacktreat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Snack Treat"
+                    android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/radio_button_teatalk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Tea Talk"
+                    android:textSize="18sp" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/button_submiteventtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="SUBMIT EVENT"
+                android:onClick="submitEvent"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:text="Event Date : "
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/eventdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="DD / MM / YYYY"
+                android:textSize="18sp"/>
+
+            <Button
+                android:id="@+id/button_selecteventdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="SELECT DATE"
+                android:onClick="selectDate"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/selectdate_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Date :"
+            android:textSize="18sp" />
+
+        <DatePicker
+            android:id="@+id/selectdate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/button_submiteventdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="SUBMIT DATE"
+            android:onClick="submitDate"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:text="Event Time (24-hour time format) : "
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From  : "
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/eventtimefrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="HH : MM"
+                android:textSize="18sp"/>
+
+            <Button
+                android:id="@+id/button_selecteventtimefrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="SELECT TIME"
+                android:onClick="selectTimeFrom"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/eventtimeto_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To       : "
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/eventtimeto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="HH : MM"
+                android:textSize="18sp"/>
+
+            <Button
+                android:id="@+id/button_selecteventtimeto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="SELECT TIME"
+                android:onClick="selectTimeTo"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/inputtime_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Time :"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/inputtimehours"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:hint="HH" />
+            <TextView
+                android:id="@+id/inputtimecolon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text=" : " />
+            <EditText
+                android:id="@+id/inputtimeminutes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:hint="MM" />
+
+            <Button
+                android:id="@+id/button_submiteventtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="SUBMIT TIME"
+                android:onClick="submitTime"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Budget :"
+            android:textSize="18sp"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/event_budget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="(Approximate)"
+            android:inputType="number"
+            android:maxLines="1"/>
+
+        <Button
+            android:id="@+id/button_submit_eventdetails"
+            style="?android:textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"
+            android:onClick="submitEventDetails"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
