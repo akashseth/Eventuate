@@ -40,11 +40,13 @@ public class EditAvailabilitiesActivity extends BaseActivity {
         EditText  priceView= (EditText)findViewById(R.id.edit_price);
         priceView.setText(mPrice);
 
-        Button addImageButton=(Button)findViewById(R.id.add_availability_image);
+        final Button addImageButton=(Button)findViewById(R.id.add_availability_image);
         addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent addImageIntent=new Intent(getApplicationContext(),AddAvailabilityImageActivity.class);
+                addImageIntent.putExtra("serviceAvailabilityId",mServiceAvailabilityId);
+                addImageIntent.putExtra("availabilityName",mAvailabilityName);
                 startActivity(addImageIntent);
             }
         });

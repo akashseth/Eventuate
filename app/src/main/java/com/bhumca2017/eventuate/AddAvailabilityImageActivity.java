@@ -36,14 +36,15 @@ public class AddAvailabilityImageActivity extends BaseActivity {
     private static String UPLOAD_URL;
 
     private static final String LOG_TAG = AddAvailabilityImageActivity.class.getSimpleName();
-    private Integer mServiceProviderId=2;
-    private Integer mAvailabilityId=1;
+    private Integer mServiceAvailabilityId;
     private String mAvailabilityName="room";
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setIntentExtraValue();
 
         UPLOAD_URL=getString(R.string.ip_address)+"/Eventuate/Services/AddAvailabilityImage.php";
         setContentView(R.layout.activity_add_availability_image);
@@ -60,6 +61,10 @@ public class AddAvailabilityImageActivity extends BaseActivity {
                 }
             }
         });
+    }
+    void setIntentExtraValue(){
+        mServiceAvailabilityId = getIntent().getIntExtra("serviceAvailabilityId",0);
+        mAvailabilityName = getIntent().getStringExtra("availabilityName");
     }
 
     void showEmptyImageAlert() {
@@ -131,8 +136,7 @@ public class AddAvailabilityImageActivity extends BaseActivity {
     private HashMap<String, String> mGetPostDataForAddImage(){
 
         HashMap<String ,String> postData = new HashMap<>();
-        postData.put("serviceProviderId", mServiceProviderId.toString());
-        postData.put("availabilityId",mAvailabilityId.toString());
+        postData.put("serviceAvailabilityId", mServiceAvailabilityId.toString());
         postData.put("imageName",mAvailabilityName+"-"+(new Date().getTime())+".jpg");
         if(photo == null) {
             postData.put("base64","null");
@@ -158,34 +162,30 @@ public class AddAvailabilityImageActivity extends BaseActivity {
         protected String doInBackground(Void... imgString) {
 
             ServerRequestHandler requestHandler=new ServerRequestHandler();
-            String jsonResponse = "";
-            try {
-                 jsonResponse = requestHandler.sendPostRequest(UPLOAD_URL,mGetPostDataForAddImage());
 
+            try {
+                String jsonResponse = requestHandler.sendPostRequest(UPLOAD_URL,mGetPostDataForAddImage());
+                if(jsonResponse.equals("1")){
+                    //
+                }
             } catch (IOException e) {
                 Log.e(LOG_TAG,"Problem while requesting post method",e);
             }
-            return jsonResponse;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(String jsonResponse) {
+        protected void onPostExecute(String s) {
 
-           progressDialog.hide();
-            if(jsonResponse.equals("1")){
-                //
-                Toast.makeText(AddAvailabilityImageActivity.this,"Uploaded succesfully",Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            else {
-                Toast.makeText(AddAvailabilityImageActivity.this,"Unable to upload please try again",Toast.LENGTH_SHORT).show();
-            }
-
+            progressDialog.hide();
 
 
         }
     }
 }
+
+
+
 
 
 
