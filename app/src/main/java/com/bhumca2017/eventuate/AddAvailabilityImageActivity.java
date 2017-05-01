@@ -165,9 +165,7 @@ public class AddAvailabilityImageActivity extends BaseActivity {
 
             try {
                 String jsonResponse = requestHandler.sendPostRequest(UPLOAD_URL,mGetPostDataForAddImage());
-                if(jsonResponse.equals("1")){
-                    //
-                }
+               return jsonResponse;
             } catch (IOException e) {
                 Log.e(LOG_TAG,"Problem while requesting post method",e);
             }
@@ -175,13 +173,21 @@ public class AddAvailabilityImageActivity extends BaseActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String result) {
 
             progressDialog.hide();
+
+            if(result.equals("1")) {
+                Toast.makeText(getApplicationContext(),"Image added successfully",Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(),"Unable to add image. Try again",Toast.LENGTH_SHORT).show();
+            }
 
 
         }
     }
+
 }
 
 

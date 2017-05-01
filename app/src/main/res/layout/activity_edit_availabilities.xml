@@ -5,117 +5,113 @@
     android:layout_height="match_parent"
     >
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-   >
-    <Button
-        android:id="@+id/delete_availability"
-        android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_height="30dp"
-        android:text="delete"
-        android:textColor="#fff"
-        android:background="#ff0000"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="20dp">
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            >
-            <TextView
-                android:id="@+id/availability_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:text="Room"/>
-        </android.support.design.widget.TextInputLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
         <Button
-            android:id="@+id/add_availability_image"
-            android:layout_width="100dp"
+            android:id="@+id/delete_availability"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="30dp"
+            android:text="delete"
+            android:textColor="#fff"
+            android:background="#ff0000"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Images"
-            android:background="@color/colorAccent"
-            android:textColor="#fff"/>
+            android:orientation="horizontal"
+            android:layout_margin="20dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:id="@+id/availability_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="Room"/>
+            </android.support.design.widget.TextInputLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/add_availability_image"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Add Images"
+                    android:background="@color/colorAccent"
+                    android:textColor="#fff"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:layout_marginLeft="20dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginLeft="20dp"
 
-        >
-        <EditText
-            android:id="@+id/edit_price"
+                >
+                <EditText
+                    android:id="@+id/edit_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Price (per item)"
+                    android:minWidth="150dp"
+                    android:inputType="numberSigned"
+                    android:text="2000"/>
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:id="@+id/save_price"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp"
+                android:text="save price"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center"
+                android:background="@color/colorAccent"
+                android:textColor="#fff"/>
+        </LinearLayout>
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Price (per item)"
-            android:minWidth="150dp"
-            android:inputType="numberSigned"
-            android:text="2000"/>
-    </android.support.design.widget.TextInputLayout>
-        <Button
-            android:id="@+id/save_price"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="35dp"
-            android:text="save price"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="center"
-            android:background="@color/colorAccent"
-            android:textColor="#fff"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Images"
-        android:textSize="20dp"
-        android:layout_gravity="center"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray">
+            android:text="Images"
+            android:textSize="20dp"
+            android:layout_gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray">
 
-    </View>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:orientation="horizontal">
-    <include layout="@layout/availabilities_images_item"/>
-    <include layout="@layout/availabilities_images_item"/>
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-        <include layout="@layout/availabilities_images_item"/>
-        <include layout="@layout/availabilities_images_item"/>
+        </View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/no_image_avail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:text="No images available"/>
+            <GridView
+                android:id="@+id/avail_images_grid_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numColumns="2">
+            </GridView>
+        </RelativeLayout>
     </LinearLayout>
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:numColumns="2">
-    </GridView>
-</LinearLayout>
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"

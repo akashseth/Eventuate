@@ -1,18 +1,29 @@
 package com.bhumca2017.eventuate;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditAvailabilitiesActivity extends BaseActivity {
@@ -20,6 +31,7 @@ public class EditAvailabilitiesActivity extends BaseActivity {
     private static final String LOG_TAG = EditAvailabilitiesActivity.class.getSimpleName();
     private static String UPDATE_PRICE_URL;
     private static String DELETE_AVAIL_URL;
+    private static String IMAGES_AVAIL_URL;
     private String mAvailabilityName;
     private Integer mServiceAvailabilityId;
     private String mPrice;
@@ -30,6 +42,7 @@ public class EditAvailabilitiesActivity extends BaseActivity {
         setContentView(R.layout.activity_edit_availabilities);
         UPDATE_PRICE_URL = getString(R.string.ip_address)+"/Eventuate/Services/UpdatePrice.php";
         DELETE_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/DeleteServiceAvailability.php";
+        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailImagesPath.php";
 
 
         setIntentExtraValue();
@@ -68,6 +81,9 @@ public class EditAvailabilitiesActivity extends BaseActivity {
                 showDeleteAlert();
             }
         });
+
+
+        new FetchAvailImagesPath().execute();
 
     }
 
@@ -188,5 +204,80 @@ public class EditAvailabilitiesActivity extends BaseActivity {
         }
     }
 
+    private ArrayList<AvailabilityImages> getExtractedDataFromJson(String jsonResponse)  {
 
+        ArrayList<AvailabilityImages> imagesPathList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonResponse);
+            for(int i =0 ;i < jsonArray.length(); i++){
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String imagePath = getString(R.string.ip_address)+"/Eventuate/availabilityImages/";
+                String imageName =  jsonObject.getString("image_location");
+                imagesPathList.add(new AvailabilityImages(jsonObject.getInt("id"), imagePath+imageName));
+            }
+        }catch (JSONException e) {
+
+            Log.e(LOG_TAG,"Error in parsing json",e);
+        }
+
+        return imagesPathList;
+    }
+
+    private String mGetRequestGetUrl() {
+
+        String requestUrl =  IMAGES_AVAIL_URL+"?serviceAvailabilityId="+mServiceAvailabilityId;
+        //Log.e(LOG_TAG,requestUrl);
+        return requestUrl;
+    }
+    private class FetchAvailImagesPath extends AsyncTask<String,Void,ArrayList<AvailabilityImages>> {
+
+        @Override
+        protected void onPreExecute() {
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected ArrayList<AvailabilityImages> doInBackground(String... imgString) {
+
+            ServerRequestHandler requestHandler=new ServerRequestHandler();
+
+            try {
+                String jsonResponse = requestHandler.sendGetRequest(mGetRequestGetUrl());
+                return getExtractedDataFromJson(jsonResponse);
+
+            } catch (IOException e) {
+                Log.e(LOG_TAG,"Problem while requesting get method",e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<AvailabilityImages> images) {
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+
+            GridView imageGridView = (GridView)findViewById(R.id.avail_images_grid_list);
+            if(images.isEmpty()) {
+
+                TextView noImageView =(TextView)findViewById(R.id.no_image_avail);
+                noImageView.setVisibility(View.VISIBLE);
+                imageGridView.setEmptyView(noImageView);
+
+            } else {
+
+                AvailabilityImagesAdapter adapter = new AvailabilityImagesAdapter(EditAvailabilitiesActivity.this, images);
+                imageGridView.setAdapter(adapter);
+
+            }
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new FetchAvailImagesPath().execute();
+    }
 }
