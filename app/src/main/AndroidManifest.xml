@@ -45,16 +45,16 @@
         <activity
             android:name=".EditProfileOrganizer"
             android:label="@string/title_activity_edit_profile_organizer"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".EditEventDetails"
             android:label="@string/title_activity_edit_event_details"
-            android:theme="@style/AppTheme.NoActionBar" />
+            />
         <activity
             android:name=".Feedbacks"
             android:label="@string/title_activity_feedbacks"
             android:parentActivityName=".Drawer"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
@@ -63,7 +63,7 @@
             android:name=".AboutUs"
             android:label="@string/title_activity_about_us"
             android:parentActivityName=".Drawer"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
@@ -71,13 +71,13 @@
         <activity
             android:name=".Drawer"
             android:label="@string/title_activity_drawer"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity android:name=".SigningIn" />
         <activity
             android:name=".EditExpenditure"
             android:label="@string/title_activity_edit_expenditure"
             android:parentActivityName=".Drawer"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
@@ -86,7 +86,7 @@
             android:name=".EditSelectedExpenditure"
             android:label="@string/title_activity_edit_selected_expenditure"
             android:parentActivityName=".EditExpenditure"
-            android:theme="@style/AppTheme.NoActionBar">
+           >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.EditExpenditure" />
@@ -95,7 +95,7 @@
             android:name=".MyBookings"
             android:label="@string/title_activity_my_bookings"
             android:parentActivityName=".Drawer"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
