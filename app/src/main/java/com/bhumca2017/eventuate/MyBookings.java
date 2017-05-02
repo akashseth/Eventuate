@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyBookings extends AppCompatActivity {
+public class MyBookings extends BaseActivityOrganiser {
 
     String json_string;
     JSONObject jsonObject;

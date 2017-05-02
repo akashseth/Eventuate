@@ -25,7 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class EditProfileOrganizer extends AppCompatActivity {
+public class EditProfileOrganizer extends BaseActivityOrganiser {
 
     String json_string;
     JSONObject jsonObject;

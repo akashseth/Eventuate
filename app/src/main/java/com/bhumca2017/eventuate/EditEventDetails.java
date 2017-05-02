@@ -38,7 +38,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class EditEventDetails extends AppCompatActivity {
+public class EditEventDetails extends BaseActivityOrganiser {
 
     TextView eventtype, selecteventtext;
     Button selecteventtype, submiteventtype;

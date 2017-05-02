@@ -27,7 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class EditSelectedExpenditure extends AppCompatActivity {
+public class EditSelectedExpenditure extends BaseActivityOrganiser {
 
     String EmailId; Integer sno; String date, amount, details;
     Bundle info;

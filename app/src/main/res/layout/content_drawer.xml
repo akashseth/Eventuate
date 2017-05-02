@@ -459,6 +459,7 @@
                 android:text="EVENT SUCCESS"
                 android:textStyle="bold"
                 android:layout_gravity="center"
+                android:textColor="#fff"
                 android:background="@color/colorPrimary"
                 android:onClick="eventSuccess"/>
 

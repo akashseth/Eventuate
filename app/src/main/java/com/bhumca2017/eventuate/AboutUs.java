@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class AboutUs extends AppCompatActivity{
+public class AboutUs extends BaseActivityOrganiser{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

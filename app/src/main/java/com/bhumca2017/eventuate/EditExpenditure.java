@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EditExpenditure extends AppCompatActivity {
+public class EditExpenditure extends BaseActivityOrganiser {
 
     String json_string;
     JSONObject jsonObject;

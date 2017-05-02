@@ -109,9 +109,11 @@ public class SigningIn extends AppCompatActivity {
         protected void onPostExecute(String result) {
 
             json_string = result;
+            SessionOrganiser sessionOrganiser = new SessionOrganiser(getApplicationContext());
+            sessionOrganiser.createLoginSession(json_string);
 
             // pass the json data to the next activity
-            Intent intent = new Intent(getApplicationContext(), Drawer.class);
+            Intent intent = new Intent(getApplicationContext(), DashboardOrganiseActivity.class);
             intent.putExtra("json_data", json_string);
             startActivity(intent);
             finish();

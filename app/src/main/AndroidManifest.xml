@@ -101,23 +101,27 @@
                 android:value="com.bhumca2017.eventuate.Drawer" />
         </activity>
 
-        <!--   services   -->
+        <!-- services -->
         <activity android:name=".BaseActivity" />
-        <activity android:name=".DashboardActivity"/>
+        <activity android:name=".DashboardActivity" />
         <activity android:name=".ServicesAvailabilitiesActivity" />
-        <activity android:name=".EditAvailabilitiesActivity"
-            android:windowSoftInputMode="stateHidden"  >
-        </activity>
-        <activity android:name=".AddAvailabilityImageActivity"></activity>
-        <activity android:name=".AddAvailabilitiesActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".EditAvailabilitiesActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".AddAvailabilityImageActivity" />
+        <activity
+            android:name=".AddAvailabilitiesActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ServicesBookedActivity"
             android:label="@string/title_activity_services_booked_details"
             android:theme="@style/AppTheme" />
         <activity android:name=".TransactionActivity" />
-        <activity android:name=".EditProfileServicesActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".EditProfileServicesActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".DashboardOrganiseActivity" />
+        <activity android:name=".BaseActivityOrganiser"></activity>
     </application>
 
 </manifest>

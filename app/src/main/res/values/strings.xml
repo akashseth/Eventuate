@@ -17,8 +17,7 @@
     </string>
     <string name="title_activity_new_user_register">NewUserRegister</string>
     <string name="title_activity_email_verification">User Verification</string>
-    <string name="title_activity_edit_profile_organizer">EditProfileOrganizer</string>
-
+    <string name="title_activity_edit_profile_organizer">Edit Profile</string>
 
 
     <string name="title_activity_edit_event_details">Edit Event Details</string>

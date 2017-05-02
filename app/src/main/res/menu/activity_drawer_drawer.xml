@@ -4,6 +4,10 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_dashboard"
+            android:title="Home"
+            android:icon="@drawable/remainingbudget"/>
+        <item
             android:id="@+id/nav_editprofileorganizer"
             android:title="Edit Profile"
             android:icon="@drawable/edit"/>
