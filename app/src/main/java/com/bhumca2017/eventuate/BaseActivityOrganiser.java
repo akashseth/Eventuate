@@ -326,37 +326,5 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
     }
 
 
-
-    // function to display the service provider list
-
-    public void displayServiceProviderList(View view)
-    {
-        String serviceType="";
-
-        switch (view.getId())
-        {
-            case    R.id.dashboard_service_hotelsrestaurants_button :   serviceType = "hotels_restaurants";
-                break;
-            case    R.id.dashboard_service_banquettelawns_button :      serviceType = "banquettes_lawns";
-                break;
-            case    R.id.dashboard_service_lodge_button :               serviceType = "lodging_restrooms";
-                break;
-            case    R.id.dashboard_service_videophotography_button :    serviceType = "video_photography";
-                break;
-            case    R.id.dashboard_service_travel_button :              serviceType = "travelling";
-                break;
-            case    R.id.dashboard_service_catering_button :            serviceType = "catering";
-                break;
-            case    R.id.dashboard_service_tenting_button :             serviceType = "tenting";
-                break;
-            case    R.id.dashboard_service_decoration_button :          serviceType = "decoration";
-                break;
-            case    R.id.dashboard_service_miscellaneous_button :       serviceType = "miscellaneous";
-                break;
-            default:                                                    break;
-        }
-
-        Toast.makeText(this, OrganizerEmail+serviceType, Toast.LENGTH_LONG).show();
-    }
 }
 

@@ -1,5 +1,6 @@
 package com.bhumca2017.eventuate;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -134,6 +135,9 @@ public class EditProfileServicesActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String response) {
 
+            Intent dashboardIntent = new Intent(EditProfileServicesActivity.this,DashboardActivity.class);
+            startActivity(dashboardIntent);
+            finish();
         }
     }
 

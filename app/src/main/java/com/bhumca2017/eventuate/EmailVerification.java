@@ -200,13 +200,13 @@ public class EmailVerification extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-               /* else if(UserType.equals("Service"))
+                else if(UserType.equals("Service"))
                 {
-                    intent = new Intent(getApplicationContext(), EditProfileService.class);
-                    intent.putExtra("serviceId", 1);
+                    intent = new Intent(getApplicationContext(), EditProfileServicesActivity.class);
+                   // intent.putExtra("serviceId", 1);
                     startActivity(intent);
                     finish();
-                } */
+                }
             }
         }
     }

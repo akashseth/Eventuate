@@ -44,17 +44,14 @@
         </activity>
         <activity
             android:name=".EditProfileOrganizer"
-            android:label="@string/title_activity_edit_profile_organizer"
-             />
+            android:label="@string/title_activity_edit_profile_organizer" />
         <activity
             android:name=".EditEventDetails"
-            android:label="@string/title_activity_edit_event_details"
-            />
+            android:label="@string/title_activity_edit_event_details" />
         <activity
             android:name=".Feedbacks"
             android:label="@string/title_activity_feedbacks"
-            android:parentActivityName=".Drawer"
-            >
+            android:parentActivityName=".Drawer">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
@@ -62,22 +59,19 @@
         <activity
             android:name=".AboutUs"
             android:label="@string/title_activity_about_us"
-            android:parentActivityName=".Drawer"
-            >
+            android:parentActivityName=".Drawer">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
         </activity>
         <activity
             android:name=".Drawer"
-            android:label="@string/title_activity_drawer"
-             />
+            android:label="@string/title_activity_drawer" />
         <activity android:name=".SigningIn" />
         <activity
             android:name=".EditExpenditure"
             android:label="@string/title_activity_edit_expenditure"
-            android:parentActivityName=".Drawer"
-            >
+            android:parentActivityName=".Drawer">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
@@ -85,8 +79,7 @@
         <activity
             android:name=".EditSelectedExpenditure"
             android:label="@string/title_activity_edit_selected_expenditure"
-            android:parentActivityName=".EditExpenditure"
-           >
+            android:parentActivityName=".EditExpenditure">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.EditExpenditure" />
@@ -94,8 +87,7 @@
         <activity
             android:name=".MyBookings"
             android:label="@string/title_activity_my_bookings"
-            android:parentActivityName=".Drawer"
-            >
+            android:parentActivityName=".Drawer">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
@@ -121,7 +113,9 @@
             android:name=".EditProfileServicesActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".DashboardOrganiseActivity" />
-        <activity android:name=".BaseActivityOrganiser"></activity>
+        <activity android:name=".BaseActivityOrganiser" />
+        <activity android:name=".OrganiserAvailabilityActivity" />
+        <activity android:name=".AvailabilityDetailsOrganiser"></activity>
     </application>
 
 </manifest>

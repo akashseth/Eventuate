@@ -18,7 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DashboardOrganiseActivity extends BaseActivityOrganiser
@@ -57,6 +60,34 @@ public class DashboardOrganiseActivity extends BaseActivityOrganiser
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_organise);
+
+        ArrayList<Services> servicesItem=new ArrayList<>();
+        servicesItem.add(new Services("Hotel",1,R.drawable.hotel));
+        servicesItem.add(new Services("Catering",2,R.drawable.catering));
+        servicesItem.add(new Services("Lawns & Banquettes",3,R.drawable.lawns));
+        servicesItem.add(new Services("Decorator",4,R.drawable.decorator));
+        servicesItem.add(new Services("Tenting",5,R.drawable.tenting));
+        servicesItem.add(new Services("Travel",6,R.drawable.travel));
+        servicesItem.add(new Services("Restaurants",7,R.drawable.restaurants));
+        servicesItem.add(new Services("Video/Photograph",8,R.drawable.video));
+        servicesItem.add(new Services("Musical",9,R.drawable.musical));
+
+
+
+        GridView servicesGridView=(GridView)findViewById(R.id.dashbord_item);
+        final ServicesItemAdapter adapter=new ServicesItemAdapter(this,servicesItem);
+        servicesGridView.setAdapter(adapter);
+
+        servicesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent=new Intent(getApplicationContext(),OrganiserAvailabilityActivity.class);
+                intent.putExtra("serviceId",adapter.getItem(position).getServiceId());
+                // Log.e("id","this "+adapter.getItem(position).getServiceId());
+                startActivity(intent);
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -474,7 +505,7 @@ public class DashboardOrganiseActivity extends BaseActivityOrganiser
         }
     }
 
-
+*/
 
     // function to display the service provider list
 
@@ -506,5 +537,5 @@ public class DashboardOrganiseActivity extends BaseActivityOrganiser
         }
 
         Toast.makeText(this, OrganizerEmail+serviceType, Toast.LENGTH_LONG).show();
-    }*/
+    }
 }
