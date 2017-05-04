@@ -34,24 +34,23 @@ public class EditAvailabilitiesActivity extends BaseActivity {
     private static String IMAGES_AVAIL_URL;
     private String mAvailabilityName;
     private Integer mServiceAvailabilityId;
-    private String mPrice;
+    EditText priceView, quantityView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_availabilities);
-        UPDATE_PRICE_URL = getString(R.string.ip_address)+"/Eventuate/Services/UpdatePrice.php";
+        UPDATE_PRICE_URL = getString(R.string.ip_address)+"/Eventuate/Services/UpdatePriceQuantity.php";
         DELETE_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/DeleteServiceAvailability.php";
         IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailImagesPath.php";
 
-
+        priceView = (EditText)findViewById(R.id.edit_price);
+        quantityView= (EditText)findViewById(R.id.edit_quantity);
         setIntentExtraValue();
 
         TextView  availTextView= (TextView)findViewById(R.id.availability_name);
         availTextView.setText(mAvailabilityName);
 
-        EditText  priceView= (EditText)findViewById(R.id.edit_price);
-        priceView.setText(mPrice);
 
         final Button addImageButton=(Button)findViewById(R.id.add_availability_image);
         addImageButton.setOnClickListener(new View.OnClickListener() {
@@ -64,12 +63,14 @@ public class EditAvailabilitiesActivity extends BaseActivity {
             }
         });
 
-        Button savePriceButton = (Button)findViewById(R.id.save_price);
+
+
+        Button savePriceButton = (Button)findViewById(R.id.save_price_quantity);
         savePriceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                new UpdatePriceAsyncTask().execute();
+                new UpdatePriceQuantityAsyncTask().execute();
             }
         });
 
@@ -112,21 +113,22 @@ public class EditAvailabilitiesActivity extends BaseActivity {
 
         mAvailabilityName = getIntent().getStringExtra("availabilityName");
         mServiceAvailabilityId = getIntent().getIntExtra("serviceAvailabilityId",0);
-        mPrice = getIntent().getStringExtra("price");
+        priceView.setText(getIntent().getStringExtra("price"));
+        quantityView.setText(getIntent().getStringExtra("quantity"));
 
     }
 
-    private HashMap<String, String> mGetPostDataForUpdatePrice(){
+    private HashMap<String, String> mGetPostDataForUpdatePriceQuantity(){
 
         HashMap<String,String> hashMap = new HashMap<>();
-        EditText  priceView= (EditText)findViewById(R.id.edit_price);
+
         hashMap.put("price",priceView.getText().toString());
         hashMap.put("serviceAvailabilityId",mServiceAvailabilityId.toString());
-
+        hashMap.put("quantity",quantityView.getText().toString());
         return hashMap;
     }
 
-    private class UpdatePriceAsyncTask extends AsyncTask<String,Void,String> {
+    private class UpdatePriceQuantityAsyncTask extends AsyncTask<String,Void,String> {
 
         @Override
         protected void onPreExecute() {
@@ -140,7 +142,7 @@ public class EditAvailabilitiesActivity extends BaseActivity {
             ServerRequestHandler requestHandler=new ServerRequestHandler();
 
             try {
-                String jsonResponse = requestHandler.sendPostRequest(UPDATE_PRICE_URL,mGetPostDataForUpdatePrice());
+                String jsonResponse = requestHandler.sendPostRequest(UPDATE_PRICE_URL,mGetPostDataForUpdatePriceQuantity());
                 if(jsonResponse.equals("1")){
                     //
 
@@ -214,7 +216,9 @@ public class EditAvailabilitiesActivity extends BaseActivity {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String imagePath = getString(R.string.ip_address)+"/Eventuate/availabilityImages/";
                 String imageName =  jsonObject.getString("image_location");
-                imagesPathList.add(new AvailabilityImages(jsonObject.getInt("id"), imagePath+imageName));
+                if(!imageName.equals("none")) {
+                    imagesPathList.add(new AvailabilityImages(jsonObject.getInt("id"), imagePath + imageName));
+                }
             }
         }catch (JSONException e) {
 

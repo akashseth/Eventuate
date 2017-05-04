@@ -65,7 +65,7 @@ public class AddAvailabilitiesActivity extends BaseActivity {
         addAvailabilityNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAvailability();
+                addAvailabilityName();
 
             }
         });
@@ -236,11 +236,11 @@ public class AddAvailabilitiesActivity extends BaseActivity {
         }
     }
 
-    void addAvailability(){
+    void addAvailabilityName(){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setMessage("Add new availability");
+        alert.setMessage("Add new availability name");
 
         final EditText input = new EditText(this);
 
@@ -326,6 +326,10 @@ public class AddAvailabilitiesActivity extends BaseActivity {
         } else {
             postData.put("base64", getImgString());
         }
+
+        TextView quantityView = (TextView)findViewById(R.id.quantity);
+        String quantity = quantityView.getText().toString();
+        postData.put("quantity",quantity);
 
         return postData;
     }

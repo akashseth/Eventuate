@@ -37,8 +37,8 @@ public class ServiceAvailabilityAdapter extends ArrayAdapter<ServiceAvailability
         TextView availabilityNameView=(TextView)listItemView.findViewById(R.id.availability_name);
         availabilityNameView.setText(serviceAvailability.getAvailabilityName());
 
-        TextView availabilityPrice=(TextView)listItemView.findViewById(R.id.price);
-        availabilityPrice.setText(serviceAvailability.getPrice());
+        TextView availabilityQuantity=(TextView)listItemView.findViewById(R.id.quantity);
+        availabilityQuantity.setText(serviceAvailability.getQuantity());
 
         final Button availabilityEdit=(Button) listItemView.findViewById(R.id.availability_edit_id);
         availabilityEdit.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +49,7 @@ public class ServiceAvailabilityAdapter extends ArrayAdapter<ServiceAvailability
                 editAvailIntent.putExtra("serviceAvailabilityId",serviceAvailability.getServiceAvailabilityId());
                 editAvailIntent.putExtra("availabilityName",serviceAvailability.getAvailabilityName());
                 editAvailIntent.putExtra("price",serviceAvailability.getPrice());
+                editAvailIntent.putExtra("quantity",serviceAvailability.getQuantity());
                 getContext().startActivity(editAvailIntent);
 
                 /*Log.e("id","this "+getItem(position).getAvailabilityId());

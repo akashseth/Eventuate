@@ -54,6 +54,8 @@ public class OrganiserAvailabilityActivity extends AppCompatActivity {
                 String price = jsonObject.getString("price");
                 availabilityList.add(new AvailabilityItemsOrganiser(serviceAvailabilityId,serviceProviderId,availabilityId,availabilityName,
                         price,providerName));
+
+                Log.e(LOG_TAG,providerName);
             }
         }catch (JSONException e) {
 

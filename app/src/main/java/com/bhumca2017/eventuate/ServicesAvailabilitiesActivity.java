@@ -65,8 +65,9 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
                 String availabilityName = jsonObject.getString("availability_name");
                 Integer serviceAvailabilityId = jsonObject.getInt("id");
                 Integer availabilityId = jsonObject.getInt("availability_id");
+                String quantity = jsonObject.getString("quantity");
                 ServiceAvailability serviceAvailability = new ServiceAvailability(availabilityName
-                        ,price,availabilityId,serviceAvailabilityId);
+                        ,price,availabilityId,serviceAvailabilityId,quantity);
                 serviceAvailabilitiesList.add(serviceAvailability);
             }
         } catch (JSONException e) {
