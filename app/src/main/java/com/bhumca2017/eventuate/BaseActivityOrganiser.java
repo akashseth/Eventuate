@@ -141,6 +141,7 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
             Intent intent = new Intent(getApplicationContext(), EditProfileOrganizer.class);
             intent.putExtra("json_data", sessionOrganiser.getJSonString());
             startActivity(intent);
+            finish();
         }
         else if (id == R.id.nav_editeventdetails)
         {
@@ -149,6 +150,7 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
             Intent intent = new Intent(getApplicationContext(), EditEventDetails.class);
             intent.putExtra("json_data", sessionOrganiser.getJSonString());
             startActivity(intent);
+            finish();
         }
         else if (id == R.id.nav_editexpenditure)
         {
@@ -157,6 +159,7 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
             intent.putExtra("json_data", sessionOrganiser.getJSonString());
             SetDrawerFlag.setDrawerFlagExpenditure(true);
             startActivity(intent);
+            finish();
         }
         else if (id == R.id.nav_mybookings)
         {
@@ -320,7 +323,9 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
                 // passing the received json to the next activity for list view display
                 Intent i = new Intent(getApplicationContext(), MyBookings.class);
                 i.putExtra("json_data", result);
+
                 startActivity(i);
+                finish();
             }
         }
     }

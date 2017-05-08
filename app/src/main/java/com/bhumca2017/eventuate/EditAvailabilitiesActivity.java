@@ -271,7 +271,7 @@ public class EditAvailabilitiesActivity extends BaseActivity {
 
             } else {
 
-                AvailabilityImagesAdapter adapter = new AvailabilityImagesAdapter(EditAvailabilitiesActivity.this, images);
+                AvailabilityImagesAdapter adapter = new AvailabilityImagesAdapter(EditAvailabilitiesActivity.this, images,"services");
                 imageGridView.setAdapter(adapter);
 
             }

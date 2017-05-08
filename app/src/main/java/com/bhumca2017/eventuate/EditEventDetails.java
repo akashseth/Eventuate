@@ -239,7 +239,7 @@ public class EditEventDetails extends BaseActivityOrganiser {
             TimeTo = Hours + " : " + Minutes;
             eventTimeTo.setText(TimeTo);
 
-
+            EventBudget = new SessionOrganiser(this).getBudget();
             eventBudget.setText(EventBudget.toString());
         }
     }
@@ -247,12 +247,35 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
     public void submitEventDetails(View view)
     {
-        EventBudget = Integer.parseInt(eventBudget.getText().toString());
 
-        if(EventType.equals("") || EventDateDayOfMonth==null || EventDateMonth==null || EventDateYear==null || EventTimeFromHour==null || EventTimeFromMinute==null || EventTimeToHour==null || EventTimeToMinute==null || EventBudget==null)
+        if(EventType.equals("") || EventDateDayOfMonth==null || EventDateMonth==null || EventDateYear==null || EventTimeFromHour==null || EventTimeFromMinute==null || EventTimeToHour==null || EventTimeToMinute==null || eventBudget.getText().toString().length()==0)
             Toast.makeText(this, "All fields are mandatory...", Toast.LENGTH_SHORT).show();
-        else
+        else {
+
+            SessionOrganiser sessionOrganiser = new SessionOrganiser(EditEventDetails.this);
+            int prevBudgetLeft = sessionOrganiser.getBudgetLeft();
+            int prevBudget = sessionOrganiser.getBudget();
+
+
+            try {
+                EventBudget = Integer.parseInt(eventBudget.getText().toString());
+            }catch (NumberFormatException e){
+
+            }
+
+            if(prevBudget!=-1 && EventBudget < (prevBudget - prevBudgetLeft)){
+                EventBudget = new SessionOrganiser(this).getBudget();
+                Toast.makeText(EditEventDetails.this,"Total budget is less than your total expenditure which is  "+(prevBudget - prevBudgetLeft)+" rs.",Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            prevBudgetLeft = prevBudgetLeft == -1 ? 0 : EventBudget;
+            prevBudget = prevBudget == -1 ? 0 : EventBudget;
+            sessionOrganiser.updateBudget(EventBudget);
+            sessionOrganiser.updateBudgetLeft(prevBudgetLeft + EventBudget - prevBudget);
+
             new BackgroundTask_updateEventDetails().execute();
+        }
     }
 
 
@@ -647,6 +670,8 @@ public class EditEventDetails extends BaseActivityOrganiser {
                         URLEncoder.encode("EventTimeToHours", "UTF-8") + "=" + EventTimeToHour + "&" +
                         URLEncoder.encode("EventTimeToMinutes", "UTF-8") + "=" + EventTimeToMinute + "&" +
                         URLEncoder.encode("EventBudget", "UTF-8") + "=" + EventBudget;
+
+
 
                 bufferedWriter.write(data);
                 bufferedWriter.flush();

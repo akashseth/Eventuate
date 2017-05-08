@@ -100,7 +100,7 @@ public class OrganiserAvailabilityActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
 
             ListView availabilityListView = (ListView)findViewById(R.id.availability_list_organiser);
-            AvailabilityItemsOrganiserAdapter adapter = new AvailabilityItemsOrganiserAdapter(OrganiserAvailabilityActivity.this,availabilityList);
+            AvailabilityItemsOrganiserAdapter adapter = new AvailabilityItemsOrganiserAdapter(OrganiserAvailabilityActivity.this,availabilityList,mServiceId);
             availabilityListView.setAdapter(adapter);
             if(availabilityList.isEmpty()) {
 

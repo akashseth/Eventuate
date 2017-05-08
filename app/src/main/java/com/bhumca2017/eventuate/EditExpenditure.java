@@ -90,9 +90,9 @@ public class EditExpenditure extends BaseActivityOrganiser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        totalBudget.setText("Rs. "+TotalBudget.toString());
-        leftBudget.setText("Rs. "+LeftBudget.toString());
+        SessionOrganiser sessionOrganiser = new SessionOrganiser(this);
+        totalBudget.setText("Rs. "+sessionOrganiser.getBudget());
+        leftBudget.setText("Rs. "+sessionOrganiser.getBudgetLeft());
     }
 
     public void addExpenditure(View view)

@@ -115,7 +115,7 @@
         <activity android:name=".DashboardOrganiseActivity" />
         <activity android:name=".BaseActivityOrganiser" />
         <activity android:name=".OrganiserAvailabilityActivity" />
-        <activity android:name=".AvailabilityDetailsOrganiser"></activity>
+        <activity android:name=".AvailabilityDetailsOrganiserActivity"></activity>
     </application>
 
 </manifest>

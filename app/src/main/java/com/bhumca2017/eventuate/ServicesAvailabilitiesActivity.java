@@ -21,7 +21,7 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
     private static final String LOG_TAG = ServicesAvailabilitiesActivity.class.getSimpleName();
     private static String  FETCH_Avail_LIST_URL;
     private int mServiceId = 2;
-    private int mServiceProviderId = 1;
+    private int mServiceProviderId = 8;
     ArrayList<ServiceAvailability> mServiceAvailabilitiesList;
 
     @Override

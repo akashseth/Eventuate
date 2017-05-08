@@ -36,6 +36,7 @@ public class EditSelectedExpenditure extends BaseActivityOrganiser {
     EditText inputDate, inputAmount, inputDetails;
 
     String Date, Details; Integer Amount;
+    Integer totalBudget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,21 @@ public class EditSelectedExpenditure extends BaseActivityOrganiser {
             Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_SHORT).show();
         else
         {
+            SessionOrganiser sessionOrganiser = new SessionOrganiser(EditSelectedExpenditure.this);
+            int previousBudget = sessionOrganiser.getBudget();
+            int budgetLeft = sessionOrganiser.getBudgetLeft()==-1 ? previousBudget : sessionOrganiser.getBudgetLeft();
+            int oldAmount = Integer.parseInt(this.amount);
+            int newAmount = Amount;
+            budgetLeft = budgetLeft + oldAmount - newAmount;
+            totalBudget = previousBudget;
+
+            if(budgetLeft<0){
+                totalBudget = previousBudget + Math.abs(budgetLeft);
+                budgetLeft = 0;
+                Toast.makeText(EditSelectedExpenditure.this, "Your total budget has been increased to "+totalBudget+". Limit your expands",Toast.LENGTH_LONG).show();
+            }
+            sessionOrganiser.updateBudget(totalBudget);
+            sessionOrganiser.updateBudgetLeft(budgetLeft);
             new BackgroundTask_updateExpenditure().execute();
         }
     }
@@ -123,6 +139,7 @@ public class EditSelectedExpenditure extends BaseActivityOrganiser {
                               URLEncoder.encode("Date", "UTF-8") + "=" + URLEncoder.encode(Date, "UTF-8") + "&" +
                               URLEncoder.encode("Amount", "UTF-8") + "=" + Amount + "&" +
                               URLEncoder.encode("OldAmount", "UTF-8") + "=" + Integer.parseInt(amount) + "&" +
+                              URLEncoder.encode("totalBudget", "UTF-8") + "=" + totalBudget + "&" +
                               URLEncoder.encode("Details", "UTF-8") + "=" + URLEncoder.encode(Details, "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();

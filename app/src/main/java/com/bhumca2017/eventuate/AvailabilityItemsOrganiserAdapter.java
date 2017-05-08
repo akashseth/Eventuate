@@ -19,14 +19,16 @@ import java.util.ArrayList;
 
 public class AvailabilityItemsOrganiserAdapter extends ArrayAdapter <AvailabilityItemsOrganiser> {
 
-    AvailabilityItemsOrganiserAdapter(Context context, ArrayList<AvailabilityItemsOrganiser> avilList){
+    private int mServiceId;
+    AvailabilityItemsOrganiserAdapter(Context context, ArrayList<AvailabilityItemsOrganiser> availList,int serviceId){
 
-        super(context,0,avilList);
+        super(context,0,availList);
+        mServiceId = serviceId;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View listItemAdapter = convertView;
 
@@ -46,7 +48,12 @@ public class AvailabilityItemsOrganiserAdapter extends ArrayAdapter <Availabilit
             @Override
             public void onClick(View v) {
 
-                Intent availabilityDetailsIntent = new Intent(getContext(),AvailabilityDetailsOrganiser.class);
+                Intent availabilityDetailsIntent = new Intent(getContext(),AvailabilityDetailsOrganiserActivity.class);
+                availabilityDetailsIntent.putExtra("serviceProviderId",getItem(position).getServiceProviderId());
+                availabilityDetailsIntent.putExtra("price",getItem(position).getPrice());
+                availabilityDetailsIntent.putExtra("serviceId",mServiceId);
+                availabilityDetailsIntent.putExtra("serviceAvailabilityId",getItem(position).getServiceAvailabilityId());
+                availabilityDetailsIntent.putExtra("availabilityName",getItem(position).getAvailabilityName());
                 getContext().startActivity(availabilityDetailsIntent);
             }
         });

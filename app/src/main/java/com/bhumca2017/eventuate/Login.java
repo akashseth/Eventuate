@@ -40,6 +40,7 @@ public class Login extends Activity {
     TextView net_conn;
 
     String userEmail, userPass;
+    int userIdService;
 
     Integer attemptsLeft = 3;   // after 3 unsuccessful login attempts, the SIGNIN button will be disabled
 
@@ -179,6 +180,7 @@ public class Login extends Activity {
                     Email = jsonObject.getString("EmailId");
                     Passcode = jsonObject.getString("PassCode");
                     UserType = jsonObject.getString("UserType");
+                    userIdService = jsonObject.getInt("id");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -198,7 +200,7 @@ public class Login extends Activity {
                     else if(UserType.equals("Service"))
                     {
                         intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                        intent.putExtra("EmailId", Email);
+                        intent.putExtra("userId", userIdService);
                         startActivity(intent);
                         finish();
                     }

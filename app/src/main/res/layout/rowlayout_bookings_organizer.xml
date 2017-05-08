@@ -2,52 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="100dp" android:weightSum="2"
-    android:background="@color/button_normal">
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+
+   >
 
     <LinearLayout
+        android:padding="7dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="1"
         android:weightSum="5"
-        android:layout_gravity="center">
+        android:gravity="center">
 
         <TextView
             android:id="@+id/bookingDate"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="Date"
             android:textSize="14sp"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:paddingTop="@dimen/activity_vertical_margin"/>
+            />
 
         <TextView
             android:id="@+id/bookingServiceProviderName"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="Name Service Provider"
             android:textSize="14sp"
             android:textStyle="bold"
             android:layout_weight="3"
             android:textAlignment="center"
-            android:paddingTop="@dimen/activity_vertical_margin"/>
+           />
 
         <TextView
             android:id="@+id/bookingServiceType"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="Service Type"
             android:textSize="14sp"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:paddingTop="@dimen/activity_vertical_margin"/>
+            />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="1"
         android:weightSum="5"
@@ -56,16 +59,16 @@
         <TextView
             android:id="@+id/bookingServiceSpecification"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Service Specification"
-            android:textSize="14sp"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="Service Specification"
             android:textAlignment="center"
-            android:paddingTop="@dimen/activity_vertical_margin"/>
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
             android:weightSum="2"
@@ -91,7 +94,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
             android:weightSum="2"
@@ -116,8 +119,22 @@
                 android:textAlignment="center"/>
 
         </LinearLayout>
-
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking status : "
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/booking_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="waiting approval from provider"/>
     </LinearLayout>
 
 </LinearLayout>

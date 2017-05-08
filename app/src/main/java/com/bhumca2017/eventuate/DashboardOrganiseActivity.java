@@ -179,6 +179,10 @@ public class DashboardOrganiseActivity extends BaseActivityOrganiser
                 TotalExpenditure = jsonObject.getInt("TotalExpenditure");
                 BudgetLeft = jsonObject.getInt("BudgetLeft");
 
+                SessionOrganiser sessionOrganiser = new SessionOrganiser(DashboardOrganiseActivity.this);
+                sessionOrganiser.updateBudget(EventBudget);
+                sessionOrganiser.updateBudgetLeft(BudgetLeft);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -267,8 +271,8 @@ public class DashboardOrganiseActivity extends BaseActivityOrganiser
             String time = timeFrom + " - " + timeTo;
             eventTime.setText(time);
 
-            String LeftBudget = "Left : Rs. " + BudgetLeft.toString();
-            budgetLeft.setText(LeftBudget);
+           // String LeftBudget = "Left : Rs. " + BudgetLeft.toString();
+            budgetLeft.setText("Left : Rs. " + new SessionOrganiser(this).getBudgetLeft());
         }
 
 

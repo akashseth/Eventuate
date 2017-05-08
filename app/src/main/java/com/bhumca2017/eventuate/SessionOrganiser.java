@@ -28,6 +28,9 @@ public class SessionOrganiser {
     private static final String KEY_drawer_flag_event_input = "drawer_flag_event_input";
     private static final String KEY_Organizer_NAME = "OrganizerName";
     private static final String KEY_JSON_STRING = "jsonString";
+    private static final String KEY_BUDGET = "budget";
+    private static final String KEY_BUDGET_LEFT = "budget_left";
+
 
     public SessionOrganiser (Context context) {
 
@@ -35,7 +38,6 @@ public class SessionOrganiser {
         pref = mContext.getSharedPreferences(PREF_NAME,PRIVATE_MODE);
         editor = pref.edit();
     }
-
 
 
     public void createLoginSession(String jsonString) {
@@ -89,5 +91,26 @@ public class SessionOrganiser {
     public String getJSonString(){
 
         return pref.getString(KEY_JSON_STRING,"");
+    }
+    public void updateBudget(Integer budget){
+
+        editor.putInt(KEY_BUDGET,budget);
+        editor.commit();
+    }
+
+    public void updateBudgetLeft(Integer budgetLeft){
+
+        editor.putInt(KEY_BUDGET_LEFT,budgetLeft);
+        editor.commit();
+    }
+
+    public int getBudget(){
+
+        return pref.getInt(KEY_BUDGET,-1);
+    }
+
+    public int getBudgetLeft(){
+
+        return pref.getInt(KEY_BUDGET_LEFT,-1);
     }
 }

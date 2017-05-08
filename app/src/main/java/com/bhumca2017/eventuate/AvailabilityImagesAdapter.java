@@ -32,13 +32,15 @@ public class AvailabilityImagesAdapter extends ArrayAdapter<AvailabilityImages> 
     ProgressDialog dialog;
     private static String DELETE_IMAGE_URL;
     Integer itemPosition = -1;
+    private String mType;
 
-    AvailabilityImagesAdapter(Context context, ArrayList<AvailabilityImages> availabilityImagesList) {
+    AvailabilityImagesAdapter(Context context, ArrayList<AvailabilityImages> availabilityImagesList,String type) {
 
 
         super(context,0,availabilityImagesList);
         this.context = context;
         DELETE_IMAGE_URL = context.getString(R.string.ip_address)+"/Eventuate/Services/DeleteImgAvail.php";
+        mType = type;
     }
 
     @NonNull
@@ -57,19 +59,20 @@ public class AvailabilityImagesAdapter extends ArrayAdapter<AvailabilityImages> 
         else {
             viewHolder= (ViewHolder) listItemView.getTag();
         }
+        Button deleteButton = (Button) listItemView.findViewById(R.id.delete_image);
+        if(mType.equals("services")) {
+            final int pos = position;
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-
-        final int pos = position;
-        Button deleteButton = (Button)listItemView.findViewById(R.id.delete_image);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                itemPosition = pos;
-                showAlert(getItem(pos).getImageId());
-            }
-        });
-
+                    itemPosition = pos;
+                    showAlert(getItem(pos).getImageId());
+                }
+            });
+        } else {
+            deleteButton.setVisibility(View.GONE);
+        }
         Picasso.with(getContext()).load(getItem(position).getImageLocation()).into(viewHolder.imageView);
 
 
