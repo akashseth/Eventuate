@@ -6,10 +6,13 @@ package com.bhumca2017.eventuate;
 
 public class BookingDetailsOrganizer {
 
-    Integer sno, amountPaid, amountDue;
-    String date, typeService, nameServiceProvider, serviceSpecification;
+    Integer sno, amountPaid, amountDue,mServiceProviderId,mQuantity,mServiceId;
+    String date, typeService, nameServiceProvider, serviceSpecification,mBookingStatus;
 
-    public BookingDetailsOrganizer(Integer sno, String date, String typeService, String nameServiceProvider, String serviceSpecification, Integer amountPaid, Integer amountDue)
+    public BookingDetailsOrganizer(Integer sno, String date, String typeService,
+                                   String nameServiceProvider, String serviceSpecification,
+                                   Integer amountPaid, Integer amountDue, Integer serviceProviderId,
+                                   String bookingStatus, Integer quantity,Integer serviceId)
     {
         this.sno = sno;
         this.date = date;
@@ -18,6 +21,11 @@ public class BookingDetailsOrganizer {
         this.serviceSpecification = serviceSpecification;
         this.amountPaid = amountPaid;
         this.amountDue = amountDue;
+        mBookingStatus = bookingStatus;
+        mServiceProviderId = serviceProviderId;
+        mQuantity = quantity;
+        mServiceId = serviceId;
+
     }
 
     public void setSno(Integer sno) {
@@ -74,5 +82,24 @@ public class BookingDetailsOrganizer {
 
     public Integer getAmountDue() {
         return amountDue;
+    }
+
+    public Integer getServiceProviderId(){
+
+        return  mServiceProviderId;
+    }
+
+    public String getBookingStatus(){
+
+        return mBookingStatus;
+    }
+    public Integer getQuantity(){
+
+        return mQuantity;
+    }
+
+    public Integer getServiceId(){
+
+        return mServiceId;
     }
 }

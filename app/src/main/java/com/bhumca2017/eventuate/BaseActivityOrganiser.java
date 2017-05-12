@@ -1,6 +1,7 @@
 package com.bhumca2017.eventuate;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
 public class BaseActivityOrganiser extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -100,7 +103,7 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
         else
             SetDrawerFlag.setDrawerFlagEventInput(false);
 
-        if(SetDrawerFlag.getDrawerFlagProfileInput())
+       // if(SetDrawerFlag.getDrawerFlagProfileInput())
         {
                 OrganizerEmail = sessionOrganiser.getOrganiserEmail();
                 OrganizerName = sessionOrganiser.getOrganiserName();
@@ -130,7 +133,7 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
         {
 
             Intent intent = new Intent(getApplicationContext(), DashboardOrganiseActivity.class);
-            intent.putExtra("json_data", sessionOrganiser.getJSonString());
+            //intent.putExtra("json_data", sessionOrganiser.getJSonString());
             startActivity(intent);
             finish();
         }
@@ -139,7 +142,7 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
             // Go to Edit Profile - Organizer Form
             SetDrawerFlag.setDrawerFlagProfile(true);
             Intent intent = new Intent(getApplicationContext(), EditProfileOrganizer.class);
-            intent.putExtra("json_data", sessionOrganiser.getJSonString());
+          //  intent.putExtra("json_data", sessionOrganiser.getJSonString());
             startActivity(intent);
             finish();
         }
@@ -148,7 +151,7 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
             // Go to Edit Event Details Form
             SetDrawerFlag.setDrawerFlagEvent(true);
             Intent intent = new Intent(getApplicationContext(), EditEventDetails.class);
-            intent.putExtra("json_data", sessionOrganiser.getJSonString());
+           // intent.putExtra("json_data", sessionOrganiser.getJSonString());
             startActivity(intent);
             finish();
         }
@@ -156,7 +159,7 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
         {
             // Go to edit Expenditure
             Intent intent = new Intent(getApplicationContext(), EditExpenditure.class);
-            intent.putExtra("json_data", sessionOrganiser.getJSonString());
+            //intent.putExtra("json_data", sessionOrganiser.getJSonString());
             SetDrawerFlag.setDrawerFlagExpenditure(true);
             startActivity(intent);
             finish();
@@ -164,7 +167,9 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
         else if (id == R.id.nav_mybookings)
         {
             // Go to My Bookings
-            new BackgroundTask_viewBookings().execute();
+           Intent myBookings = new Intent(this,MyBookings.class);
+            startActivity(myBookings);
+            finish();
         }
         else if (id == R.id.nav_sendinvitations)
         {
@@ -227,12 +232,14 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
             switch(view.getId())
             {
                 case R.id.dialog_signout_yes :    // set flags and signout
-                    SetDrawerFlag.setDrawerFlagProfile(false);
-                    SetDrawerFlag.setDrawerFlagEvent(false);
-                    SetDrawerFlag.setDrawerFlagProfileInput(false);
-                    SetDrawerFlag.setDrawerFlagEventInput(false);
+
                     // Sign Out and go to Login activity
-                    startActivity(new Intent(getContext(), Login.class));
+
+                    sessionOrganiser.logout();
+
+                    Intent intent = new Intent(getContext(), Login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                     finish();
                     break;
 
@@ -247,89 +254,15 @@ public class BaseActivityOrganiser extends AppCompatActivity implements Navigati
     }
 
 
-    // background tasks for extracting the booking details of the organizer
-
-    public class BackgroundTask_viewBookings extends AsyncTask<Void, Void, String> {
-
-        String url_viewBookings;
-
-        @Override
-        protected void onPreExecute()
-        {
-            // url of php script for extracting the expenditure details
-            url_viewBookings=getString(R.string.ip_address)+"/eventuate/viewbookings_organizer.php";
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-
-            try {
-                // connecting to the url
-                URL url = new URL(url_viewBookings);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-
-                OutputStream OS = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS, "UTF-8"));
-
-                String data = URLEncoder.encode("EmailId", "UTF-8") + "=" + URLEncoder.encode(OrganizerEmail, "UTF-8");
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                OS.close();
 
 
-                InputStream IS = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(IS));
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
-                String line = "";
-                StringBuilder stringBuilder = new StringBuilder();  // returns the JSON response
+            Intent homeIntent = new Intent(this,DashboardOrganiseActivity.class);
+            startActivity(homeIntent);
 
-                while((line=bufferedReader.readLine())!=null)
-                    stringBuilder.append((line+"\n"));
-
-                bufferedReader.close();
-                IS.close();
-                httpURLConnection.disconnect();
-
-                // returning a json object string containing the booking details of the organizer
-                return stringBuilder.toString().trim();
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            if((result.equals("No Bookings")))
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-            else
-            {
-                // passing the received json to the next activity for list view display
-                Intent i = new Intent(getApplicationContext(), MyBookings.class);
-                i.putExtra("json_data", result);
-
-                startActivity(i);
-                finish();
-            }
-        }
     }
-
-
 }
 

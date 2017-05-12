@@ -5,6 +5,7 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
         android:allowBackup="true"
@@ -24,10 +25,11 @@
         </activity>
         <activity
             android:name=".Login"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".NewUserRegister"
-            android:label="@string/title_activity_new_user_register"
+            android:label= "@string/title_activity_new_user_register"
             android:parentActivityName=".Login"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -47,7 +49,8 @@
             android:label="@string/title_activity_edit_profile_organizer" />
         <activity
             android:name=".EditEventDetails"
-            android:label="@string/title_activity_edit_event_details" />
+            android:label="@string/title_activity_edit_event_details"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".Feedbacks"
             android:label="@string/title_activity_feedbacks"
@@ -92,6 +95,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bhumca2017.eventuate.Drawer" />
         </activity>
+        <activity android:name=".BookingDetailsOrg"
+            android:label="Booking Details"></activity>
 
         <!-- services -->
         <activity android:name=".BaseActivity" />

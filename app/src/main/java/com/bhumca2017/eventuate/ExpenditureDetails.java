@@ -39,7 +39,7 @@ public class ExpenditureDetails {
     }
 
     public void setAmount(String amount) {
-        this.amount = "Rs. "+amount;
+        this.amount = amount;
     }
 
     public String getDetails() {

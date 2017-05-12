@@ -8,6 +8,7 @@ import android.net.UrlQuerySanitizer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.renderscript.Sampler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ScrollingView;
@@ -60,6 +61,7 @@ public class EditExpenditure extends BaseActivityOrganiser {
 
     ExpenditureDetailsAdapter expenditureDetailsAdapter;
     ListView expenditureDetails;
+    SessionOrganiser sessionOrganiser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,24 +77,12 @@ public class EditExpenditure extends BaseActivityOrganiser {
         expenditureDetails = (ListView)findViewById(R.id.expendituredetails_list);
         expenditureDetails.setVisibility(View.GONE);
 
-        expenditureDetailsAdapter = new ExpenditureDetailsAdapter(this, R.layout.row_layout_expendituredetails);
-        expenditureDetails.setAdapter(expenditureDetailsAdapter);
 
-        json_string = getIntent().getExtras().getString("json_data");
 
-        try {
-            jsonObject = new JSONObject(json_string);
-
-            EmailId = jsonObject.getString("EmailId");
-            TotalBudget = jsonObject.getInt("EventBudget");
-            LeftBudget = jsonObject.getInt("BudgetLeft");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        SessionOrganiser sessionOrganiser = new SessionOrganiser(this);
+        sessionOrganiser = new SessionOrganiser(this);
         totalBudget.setText("Rs. "+sessionOrganiser.getBudget());
         leftBudget.setText("Rs. "+sessionOrganiser.getBudgetLeft());
+        EmailId = sessionOrganiser.getOrganiserEmail();
     }
 
     public void addExpenditure(View view)
@@ -103,6 +93,7 @@ public class EditExpenditure extends BaseActivityOrganiser {
         Intent intent = new Intent(this, EditSelectedExpenditure.class);
         intent.putExtras(info);
         startActivity(intent);
+        finish();
     }
 
     public void viewExpenditure(View view)
@@ -188,6 +179,7 @@ public class EditExpenditure extends BaseActivityOrganiser {
                 // making the expenditure table visible if the expenditure details exist in the database
                 expenditure.setVisibility(View.VISIBLE);
                 expenditureDetails.setVisibility(View.VISIBLE);
+                List<ExpenditureDetails> list = new ArrayList();
 
                 // parsing the json received
                 try {
@@ -205,7 +197,7 @@ public class EditExpenditure extends BaseActivityOrganiser {
                         details = JO.getString("details");
 
                         ExpenditureDetails expenditureDetails = new ExpenditureDetails(EmailId, sno, date, amount, details);
-                        expenditureDetailsAdapter.add(expenditureDetails);
+                        list.add(expenditureDetails);
 
                         count++;
                     }
@@ -213,40 +205,33 @@ public class EditExpenditure extends BaseActivityOrganiser {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                expenditureDetailsAdapter = new ExpenditureDetailsAdapter(EditExpenditure.this, R.layout.row_layout_expendituredetails,list);
+                expenditureDetails.setAdapter(expenditureDetailsAdapter);
+                expenditureDetails.setEmptyView(findViewById(R.id.no_expenditure_avail));
             }
         }
     }
 
 
-    public class ExpenditureDetailsAdapter extends ArrayAdapter {
+    public class ExpenditureDetailsAdapter extends ArrayAdapter<ExpenditureDetails> {
 
-        List list = new ArrayList();
+
         Bundle info = new Bundle();
+        int itemPosition =-1;
 
-        public ExpenditureDetailsAdapter(Context context, int resource) {
-            super(context, resource);
+        public ExpenditureDetailsAdapter(Context context, int resource,List<ExpenditureDetails>list) {
+            super(context,resource,list);
         }
 
-        public void add(ExpenditureDetails object) {
-            list.add(object);
-        }
 
-        @Override
-        public int getCount() {
-            return list.size();
-        }
 
-        @Override
-        public Object getItem(int position) {
-            return list.get(position);
-        }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row;
             row = convertView;
             final ExpenditureHolder expenditureHolder;
-            if(row==null)       // if the row doesn't exist
+            if (row == null)       // if the row doesn't exist
             {
                 LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 row = layoutInflater.inflate(R.layout.row_layout_expendituredetails, parent, false);
@@ -257,16 +242,14 @@ public class EditExpenditure extends BaseActivityOrganiser {
                 expenditureHolder.edit_button = (Button) row.findViewById(R.id.expenditureEdit_button);
                 expenditureHolder.delete_button = (Button) row.findViewById(R.id.expenditureDelete_button);
                 row.setTag(expenditureHolder);
-            }
-            else
-            {
+            } else {
                 expenditureHolder = (ExpenditureHolder) row.getTag();
             }
 
             // setting the resources for the text view
-            final ExpenditureDetails expenditureDetails = (ExpenditureDetails) this.getItem(position);
+            final ExpenditureDetails expenditureDetails = getItem(position);
             expenditureHolder.tx_date.setText(expenditureDetails.getDate());
-            expenditureHolder.tx_amount.setText(expenditureDetails.getAmount());
+            expenditureHolder.tx_amount.setText("Rs. "+expenditureDetails.getAmount());
             expenditureHolder.tx_details.setText(expenditureDetails.getDetails());
 
             row.findViewById(R.id.expenditureEdit_button).setOnClickListener(new View.OnClickListener() {
@@ -284,158 +267,169 @@ public class EditExpenditure extends BaseActivityOrganiser {
                     Intent intent = new Intent(getContext(), EditSelectedExpenditure.class);
                     intent.putExtras(info);
                     startActivity(intent);
+                    finish();
                 }
             });
-
+            final int pos = position;
             row.findViewById(R.id.expenditureDelete_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // perform delete expenditure
-
+                    itemPosition = pos;
                     CustomDialogDeleteExpenditure cdde = new CustomDialogDeleteExpenditure(getContext(), expenditureDetails.getDate(), expenditureDetails.getDetails(), expenditureDetails.getSno());
                     cdde.show();
+
                 }
             });
+
 
             return row;
         }
 
-        class ExpenditureHolder
-        {
+        class ExpenditureHolder {
             TextView tx_date, tx_amount, tx_details;
             Button edit_button, delete_button;
         }
-    }
 
 
-    // Class for the custom dialog box for the delete expenditure
+        // Class for the custom dialog box for the delete expenditure
 
-    public class CustomDialogDeleteExpenditure extends Dialog implements View.OnClickListener
-    {
-        public Activity a;
-        public Dialog d;
-        public Button yes, no;
-        TextView deletepermission;
-        String date, details;
-        Integer sno;
+        public class CustomDialogDeleteExpenditure extends Dialog implements View.OnClickListener {
+            public Activity a;
+            public Dialog d;
+            public Button yes, no;
+            TextView deletepermission;
+            String date, details;
+            Integer sno;
 
-        public CustomDialogDeleteExpenditure(Context c, String date, String details, Integer sno) {
-            super(c);
-            this.date = date;
-            this.details = details;
-            this.sno = sno;
-        }
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+            public CustomDialogDeleteExpenditure(Context c, String date, String details, Integer sno) {
+                super(c);
+                this.date = date;
+                this.details = details;
+                this.sno = sno;
 
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            setContentView(R.layout.custom_dialog_deleteexpenditure);
-            deletepermission = (TextView) findViewById(R.id.txt_deleteentrypermission);
-            deletepermission.setText("Do you really want to delete the expenditure entry '"+date+" : "+details+"' ?");
-            yes = (Button) findViewById(R.id.dialog_deleteexpenditure_yes);
-            no = (Button) findViewById(R.id.dialog_deleteexpenditure_no);
-            yes.setOnClickListener(this);
-            no.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view)
-        {
-            switch(view.getId())
-            {
-                case R.id.dialog_deleteexpenditure_yes :    // backgroundtask for delete
-                                                            new BackgroundTask_deleteExpenditure(sno).execute();
-                                                            break;
-
-                case R.id.dialog_deleteexpenditure_no :     dismiss();
-                                                            break;
-
-                default :                                   break;
             }
 
-            dismiss();
-        }
-    }
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
 
-    // background tasks for deleting the expenditure entry
-
-    public class BackgroundTask_deleteExpenditure extends AsyncTask<Void, Void, String> {
-
-        String url_deleteExpenditure;
-        Integer sno;
-
-        BackgroundTask_deleteExpenditure(Integer sno)
-        {
-            this.sno = sno;
-        }
-
-        @Override
-        protected void onPreExecute()
-        {
-            // url of php script for delete the expenditure
-            url_deleteExpenditure=getString(R.string.ip_address)+"/eventuate/delete_expenditure.php";
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-
-            try {
-                // connecting to the url
-                URL url = new URL(url_deleteExpenditure);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-
-                OutputStream OS = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS, "UTF-8"));
-
-                String data = URLEncoder.encode("EmailId", "UTF-8") + "=" + URLEncoder.encode(EmailId, "UTF-8") + "&" +
-                              URLEncoder.encode("Sno", "UTF-8") + "=" + sno;
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                OS.close();
-
-
-                InputStream IS = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(IS));
-
-                String line = "";
-                StringBuilder stringBuilder = new StringBuilder();  // returns the JSON response
-
-                while((line=bufferedReader.readLine())!=null)
-                    stringBuilder.append((line+"\n"));
-
-                bufferedReader.close();
-                IS.close();
-                httpURLConnection.disconnect();
-
-                // returning a json object string containing email id of the user
-                return stringBuilder.toString().trim();
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }catch (IOException e) {
-                e.printStackTrace();
+                requestWindowFeature(Window.FEATURE_NO_TITLE);
+                setContentView(R.layout.custom_dialog_deleteexpenditure);
+                deletepermission = (TextView) findViewById(R.id.txt_deleteentrypermission);
+                deletepermission.setText("Do you really want to delete the expenditure entry '" + date + " : " + details + "' ?");
+                yes = (Button) findViewById(R.id.dialog_deleteexpenditure_yes);
+                no = (Button) findViewById(R.id.dialog_deleteexpenditure_no);
+                yes.setOnClickListener(this);
+                no.setOnClickListener(this);
             }
 
-            return null;
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.dialog_deleteexpenditure_yes:    // backgroundtask for delete
+
+                        new BackgroundTask_deleteExpenditure(sno).execute();
+
+                        break;
+
+                    case R.id.dialog_deleteexpenditure_no:
+                        dismiss();
+                        break;
+
+                    default:
+                        break;
+                }
+
+                dismiss();
+            }
         }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+        // background tasks for deleting the expenditure entry
 
-        @Override
-        protected void onPostExecute(String result) {
+        public class BackgroundTask_deleteExpenditure extends AsyncTask<Void, Void, String> {
 
-            String EmailId="";
+            String url_deleteExpenditure;
+            Integer sno;
+
+            BackgroundTask_deleteExpenditure(Integer sno) {
+                this.sno = sno;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                // url of php script for delete the expenditure
+                url_deleteExpenditure = getString(R.string.ip_address) + "/eventuate/delete_expenditure.php";
+                super.onPreExecute();
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+
+                try {
+                    // connecting to the url
+                    URL url = new URL(url_deleteExpenditure);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+
+                    OutputStream OS = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS, "UTF-8"));
+
+                    String data = URLEncoder.encode("EmailId", "UTF-8") + "=" + URLEncoder.encode(EmailId, "UTF-8") + "&" +
+                            URLEncoder.encode("Sno", "UTF-8") + "=" + sno;
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    OS.close();
+
+
+                    InputStream IS = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(IS));
+
+                    String line = "";
+                    StringBuilder stringBuilder = new StringBuilder();  // returns the JSON response
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        stringBuilder.append((line + "\n"));
+
+                    bufferedReader.close();
+                    IS.close();
+                    httpURLConnection.disconnect();
+
+                    // returning a json object string containing email id of the user
+                    return stringBuilder.toString().trim();
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onProgressUpdate(Void... values) {
+                super.onProgressUpdate(values);
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+
+
+                if(itemPosition!=-1){
+                    sessionOrganiser.updateBudgetLeft(sessionOrganiser.getBudgetLeft()+Integer.parseInt(getItem(itemPosition).getAmount()));
+                    leftBudget.setText("Rs. "+ sessionOrganiser.getBudgetLeft());
+                    remove(getItem(itemPosition));
+                    if(getCount()==0){
+                        findViewById(R.id.no_expenditure_avail).setVisibility(View.VISIBLE);
+                    }
+                }
+           /* String EmailId="";
 
             // parsing the received json string
 
@@ -452,8 +446,16 @@ public class EditExpenditure extends BaseActivityOrganiser {
             info .putString("EmailId", EmailId);
             i.putExtras(info);
             startActivity(i);
-            finish();
+            finish();*/
+            }
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        totalBudget.setText("Rs. "+sessionOrganiser.getBudget());
+        leftBudget.setText("Rs. "+sessionOrganiser.getBudgetLeft());
+       // new BackgroundTask_extractExpenditure().execute();
+    }
 }

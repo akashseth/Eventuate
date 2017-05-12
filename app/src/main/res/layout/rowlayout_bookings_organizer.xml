@@ -1,50 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="100dp" android:weightSum="2"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
 
-   >
+    >
 
     <LinearLayout
-        android:padding="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:gravity="center">
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:background="#efe8ed">
 
         <TextView
-            android:id="@+id/bookingDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="14sp"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            />
 
-        <TextView
-            android:id="@+id/bookingServiceProviderName"
-            android:layout_width="wrap_content"
+            android:id="@+id/bookingServiceSpecification"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Name Service Provider"
-            android:textSize="14sp"
+            tools:text="Availability name"
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_weight="3"
-            android:textAlignment="center"
-           />
+            android:layout_weight="1.4"
+            android:gravity="left"
+            />
 
         <TextView
             android:id="@+id/bookingServiceType"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Service Type"
+            tools:text="Service Type"
             android:textSize="14sp"
             android:layout_weight="1"
-            android:textAlignment="center"
+            android:gravity="left"
             />
+
+        <TextView
+            android:id="@+id/bookingDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="12/07/2017"
+            android:textSize="14sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            />
+
 
     </LinearLayout>
 
@@ -52,40 +55,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:layout_gravity="center">
+        android:background="#efe8ed"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        >
 
         <TextView
-            android:id="@+id/bookingServiceSpecification"
-            android:layout_width="wrap_content"
+            android:id="@+id/bookingServiceProviderName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:text="Service Specification"
-            android:textAlignment="center"
-            android:textSize="14sp" />
-
+            android:layout_weight="1.5"
+            android:layout_gravity="center_vertical"
+            tools:text="Hotel sunshine"
+            android:textSize="15sp"
+            android:gravity="left"
+            />
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:weightSum="2"
-            android:layout_gravity="center">
+            android:gravity="left"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="Paid : Rs. "
+                android:layout_height="wrap_content"
+                android:text="Quantity"
                 android:textSize="14sp"
                 android:layout_weight="1"
+                android:textColor="#0148c1"
                 android:textAlignment="center"/>
 
             <TextView
+                android:id="@+id/quantity_booking"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="Due  : Rs. "
+                android:layout_height="wrap_content"
+                tools:text="5"
+                android:paddingLeft="10dp"
+                android:textSize="14sp"
+                android:layout_gravity=""
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="left"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paid"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:textColor="#169613"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/bookingAmountPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Rs. 10"
                 android:textSize="14sp"
                 android:layout_weight="1"
                 android:textAlignment="center"/>
@@ -93,18 +127,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="left"
             android:layout_weight="1"
-            android:weightSum="2"
-            android:layout_gravity="center">
+          >
 
             <TextView
-                android:id="@+id/bookingAmountPaid"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="Amount"
+                android:layout_height="wrap_content"
+                android:text="Due"
+                android:textColor="#c60000"
                 android:textSize="14sp"
                 android:layout_weight="1"
                 android:textAlignment="center"/>
@@ -112,17 +146,20 @@
             <TextView
                 android:id="@+id/bookingAmountDue"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="Amount"
+                android:layout_height="wrap_content"
+                tools:text="Rs. 0"
                 android:textSize="14sp"
                 android:layout_weight="1"
                 android:textAlignment="center"/>
 
+
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:background="#efe8ed">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,7 +171,11 @@
             android:id="@+id/booking_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="waiting approval from provider"/>
+            tools:text="waiting approval from provider"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
+        </LinearLayout>
 
 </LinearLayout>

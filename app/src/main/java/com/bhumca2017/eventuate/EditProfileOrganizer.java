@@ -34,6 +34,7 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
 
     TextView organizer_name, organizer_mob, organizer_address;
     Button submit_organizer_profile;
+    SessionOrganiser sessionOrganiser;
 
 
     boolean drawer_flag = SetDrawerFlag.getDrawerFlagProfile();
@@ -50,26 +51,24 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_organizer);
 
+        sessionOrganiser = new SessionOrganiser(this);
+
         organizer_name = (EditText)findViewById(R.id.OrganizerName);
         organizer_mob = (EditText)findViewById(R.id.OrganizerMob);
         organizer_address = (EditText)findViewById(R.id.OrganizerAddress);
         submit_organizer_profile = (Button)findViewById(R.id.button_submit_profileOrganizer);
 
         // extracts the json string
-        json_string = getIntent().getExtras().getString("json_data");
+       // json_string = getIntent().getExtras().getString("json_data");
 
-        if(drawer_flag_input == true)       // organizer data exists in the database
+        if(sessionOrganiser.getDrawerFlagProfileInput() == true)       // organizer data exists in the database
         {
-            // parsing the json string to extract remaining data items
-            try {
-                jsonObject = new JSONObject(json_string);
-                OrganizerEmail = jsonObject.getString("EmailId");
-                OrganizerName = jsonObject.getString("OrganizerName");
-                OrganizerMob = jsonObject.getString("OrganizerMob");
-                OrganizerAddress = jsonObject.getString("OrganizerAddress");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+                OrganizerEmail = sessionOrganiser.getOrganiserEmail();
+                OrganizerName = sessionOrganiser.getOrganiserName();
+                OrganizerMob = sessionOrganiser.getOrganizerMobNo();
+                OrganizerAddress = sessionOrganiser.getOrganizerAddress();
+
 
             organizer_name.setText(OrganizerName);
             organizer_mob.setText(OrganizerMob);
@@ -78,12 +77,9 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
         if(drawer_flag_input == false)       // organizer data doesn't exist in the database
         {
             // parsing the json string
-            try {
-                jsonObject = new JSONObject(json_string);
-                OrganizerEmail = jsonObject.getString("EmailId");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+                OrganizerEmail = sessionOrganiser.getOrganiserEmail();
+
         }
 
     }
@@ -100,8 +96,9 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
             Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_LONG).show();
         else if(OrganizerMob.length() != 10)
             Toast.makeText(this, "Mobile No. is invalid...", Toast.LENGTH_LONG).show();
-        else
+        else {
             new BackgroundTask_updateOrganizerProfile().execute();
+        }
     }
 
 
@@ -191,7 +188,15 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
                 Toast.makeText(getApplicationContext(), "Profile updated successfully...", Toast.LENGTH_LONG).show();
                 SetDrawerFlag.setDrawerFlagProfileInput(true);
 
+
                 json_string = result;
+
+                sessionOrganiser = new SessionOrganiser(EditProfileOrganizer.this);
+                sessionOrganiser.updateOrganiserName(OrganizerName);
+                sessionOrganiser.updateOrganiserMobNo(OrganizerMob);
+                sessionOrganiser.updateOrganiserAddress(OrganizerAddress);
+                organizerName.setText(OrganizerName);
+
 
                 // pass the json data to the next activity
                 Intent intent;
@@ -204,7 +209,7 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
                 }
                 else if(drawer_flag == true)
                 {
-                    intent = new Intent(getApplicationContext(), SigningIn.class);
+                    /*intent = new Intent(getApplicationContext(), SigningIn.class);
 
                     // parsing the json string
                     try {
@@ -215,7 +220,9 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
                     }
 
                     intent.putExtra("EmailId", OrganizerEmail);
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    Intent dashboardIntent = new Intent(EditProfileOrganizer.this,DashboardOrganiseActivity.class);
+                    startActivity(dashboardIntent);
                     finish();
                 }
             }

@@ -5,10 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     android:background="#efe8ed"
     tools:context="com.bhumca2017.eventuate.AvailabilityDetailsOrganiserActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="?actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -43,7 +55,7 @@
             android:id="@+id/service_provider_name_details"
             android:text="Service Provider Name"
             android:textAllCaps="true"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             />
         <TextView
@@ -99,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Room"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
         <LinearLayout
@@ -111,6 +123,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/quantity_text"
                 android:text="Available : "
                 android:textColor="@color/colorAccent"
                 android:layout_width="wrap_content"
@@ -173,6 +186,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/booking_details"
         >
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
@@ -228,5 +242,6 @@
             android:textStyle="bold"
             android:text="Book"
             android:layout_gravity="right|bottom"/>
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

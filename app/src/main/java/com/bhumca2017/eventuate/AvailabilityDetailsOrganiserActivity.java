@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class AvailabilityDetailsOrganiserActivity extends BaseActivityOrganiser {
+public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = AvailabilityDetailsOrganiserActivity.class.getSimpleName();
     private static String FETCH_SERVICES_PROFILE_URL;
@@ -59,6 +60,11 @@ public class AvailabilityDetailsOrganiserActivity extends BaseActivityOrganiser 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_availability_details_organiser);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         FETCH_SERVICES_PROFILE_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchProfile.php";
         FETCH_AVAIL_QUANTITY_URL = getString(R.string.ip_address)+"/Eventuate/FetchAvailabilityQuantity.php";
         IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailImagesPath.php";
@@ -127,6 +133,9 @@ public class AvailabilityDetailsOrganiserActivity extends BaseActivityOrganiser 
         if(Integer.parseInt(quantity) > this.quantityAvailable){
 
             Toast.makeText(getApplicationContext(),"Please choose quantity less than or equal to available quantity",Toast.LENGTH_LONG).show();
+        } else if(sessionOrganiser.getEventType().length()==0){
+
+            Toast.makeText(this,"Set your event first",Toast.LENGTH_LONG).show();
         }
         else if(totalAmount > budgetLeft) {
 
@@ -471,7 +480,8 @@ public class AvailabilityDetailsOrganiserActivity extends BaseActivityOrganiser 
 
                 if (bookingStatus.get("result")==1){
                     Toast.makeText(AvailabilityDetailsOrganiserActivity.this,"Booking success and it is waiting approval from provider",Toast.LENGTH_LONG).show();
-                    new BaseActivityOrganiser.BackgroundTask_viewBookings().execute();
+                    Intent myBookingsIntent = new Intent(AvailabilityDetailsOrganiserActivity.this,MyBookings.class);
+                    startActivity(myBookingsIntent);
                     finish();
                 } else {
 
@@ -484,5 +494,19 @@ public class AvailabilityDetailsOrganiserActivity extends BaseActivityOrganiser 
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
 
+        onBackPressed();
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent prevIntent = new Intent(this,OrganiserAvailabilityActivity.class);
+        prevIntent.putExtra("serviceId",mServiceId);
+        startActivity(prevIntent);
+        finish();
+    }
 }

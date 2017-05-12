@@ -14,6 +14,7 @@ import android.os.Handler;
 
 public class SplashScreen extends Activity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Splash Screen Timer
@@ -22,17 +23,26 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        final SessionOrganiser sessionOrganiser = new SessionOrganiser(this);
+
         new Handler().postDelayed(new Runnable() {
             // showing splash screen with a timer
             @Override
             public void run()   {
                 // This method will be executed once the timer is over
                 // Starting the next activity
-                Intent i = new Intent(SplashScreen.this, Login.class);
-                startActivity(i);
+                if(sessionOrganiser.isLoggedIn()) {
+                    Intent i = new Intent(SplashScreen.this, DashboardOrganiseActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
 
-                // Close this activity
-                finish();
+                } else {
+
+                    Intent i = new Intent(SplashScreen.this, Login.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                }
+
             }
         }, SPLASH_TIME_OUT);
     }

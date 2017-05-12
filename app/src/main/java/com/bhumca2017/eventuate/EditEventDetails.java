@@ -1,14 +1,17 @@
 package com.bhumca2017.eventuate;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -36,7 +39,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class EditEventDetails extends BaseActivityOrganiser {
 
@@ -45,17 +51,17 @@ public class EditEventDetails extends BaseActivityOrganiser {
     RadioGroup selectEventType;
     RadioButton wedding, ringCeremony, birthday, party, fest, businessMeet, showsConcerts, snackTreat, teaTalk;
 
-    TextView eventDate;
+    EditText eventDate;
     Button selectdate;
     TextView selectdatetext;
     DatePicker selectDate;
     Button submitdate;
 
-    TextView eventTimeFrom, eventTimeToText, eventTimeTo, inputtimetext, inputtimecolon;
+    TextView  eventTimeToText, inputtimetext, inputtimecolon;
     Button selecttimefrom, selecttimeto, submittime;
     EditText inputtimehours, inputtimeminutes;
 
-    EditText eventBudget;
+    EditText eventBudget,eventTimeFrom,eventTimeTo;
 
     Button submitEventDetails;
 
@@ -66,8 +72,14 @@ public class EditEventDetails extends BaseActivityOrganiser {
     int DayOfMonth=-1, Month=-1, Year=-1, CurrentTimeHours=-1, CurrentTimeMinutes=-1;
     Integer EventBudget=null;
 
+
     String json_string;
     JSONObject jsonObject;
+
+    SessionOrganiser sessionOrganiser;
+    Integer timeHours, timeMinutes;
+    boolean flagTimeTo=false;
+    Integer dateDayOfMonth, dateMonth, dateYear;
 
     boolean drawer_flag = SetDrawerFlag.getDrawerFlagEvent();
     // if drawer_flag=false => first time event is edited, i.e., in php, data is inserted into the table
@@ -83,6 +95,8 @@ public class EditEventDetails extends BaseActivityOrganiser {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event_details);
 
+        sessionOrganiser = new SessionOrganiser(this);
+
         eventtype = (TextView) findViewById(R.id.eventtype);
         selecteventtype = (Button) findViewById(R.id.button_selecteventtype);
         selecteventtext = (TextView) findViewById(R.id.selecteventtext);
@@ -90,6 +104,12 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
         selectEventType = (RadioGroup) findViewById(R.id.radio_button_eventtype);
         selectEventType.setVisibility(View.GONE);
+        selectEventType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                submitEvent();
+            }
+        });
         wedding = (RadioButton) findViewById(R.id.radio_button_wedding);
         ringCeremony = (RadioButton) findViewById(R.id.radio_button_ringceremony);
         birthday = (RadioButton) findViewById(R.id.radio_button_birthday);
@@ -103,7 +123,7 @@ public class EditEventDetails extends BaseActivityOrganiser {
         submiteventtype = (Button) findViewById(R.id.button_submiteventtype);
         submiteventtype.setVisibility(View.GONE);
 
-        eventDate = (TextView) findViewById(R.id.eventdate);
+        eventDate = (EditText) findViewById(R.id.eventdate);
         selectdate = (Button) findViewById(R.id.button_selecteventdate);
         selectdatetext = (TextView) findViewById(R.id.selectdate_text);
         selectdatetext.setVisibility(View.GONE);
@@ -112,10 +132,10 @@ public class EditEventDetails extends BaseActivityOrganiser {
         submitdate = (Button) findViewById(R.id.button_submiteventdate);
         submitdate.setVisibility(View.GONE);
 
-        eventTimeFrom = (TextView) findViewById(R.id.eventtimefrom);
+        eventTimeFrom = (EditText) findViewById(R.id.eventtimefrom);
         selecttimefrom = (Button) findViewById(R.id.button_selecteventtimefrom);
         eventTimeToText = (TextView) findViewById(R.id.eventtimeto_text);
-        eventTimeTo = (TextView) findViewById(R.id.eventtimeto);
+        eventTimeTo = (EditText) findViewById(R.id.eventtimeto);
         selecttimeto = (Button) findViewById(R.id.button_selecteventtimeto);
         inputtimetext = (TextView) findViewById(R.id.inputtime_text);
         inputtimetext.setVisibility(View.GONE);
@@ -136,39 +156,31 @@ public class EditEventDetails extends BaseActivityOrganiser {
         // parsing the received json string
 
         // extracting the json string
-        json_string = getIntent().getExtras().getString("json_data");
+       // json_string = getIntent().getExtras().getString("json_data");
 
         if(drawer_flag_input == false)       // organizer data doesn't exist in the database
         {
-            // parsing the json string
-            try {
-                jsonObject = new JSONObject(json_string);
-                OrganizerEmail = jsonObject.getString("EmailId");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+                OrganizerEmail = sessionOrganiser.getOrganiserEmail();
+
         }
 
         // setting the form data to the previous input data if the event info is available in the database
         if(drawer_flag_input == true)       // organizer data exists in the database
         {
-            // parsing the json string
-            try {
-                jsonObject = new JSONObject(json_string);
-                OrganizerEmail = jsonObject.getString("EmailId");
-                EventType = jsonObject.getString("EventType");
-                EventDateDayOfMonth = jsonObject.getInt("EventDateDayOfMonth");
-                EventDateMonth = jsonObject.getInt("EventDateMonth");
-                EventDateYear = jsonObject.getInt("EventDateYear");
-                EventTimeFromHour = jsonObject.getInt("EventTimeFromHours");
-                EventTimeFromMinute = jsonObject.getInt("EventTimeFromMinutes");
-                EventTimeToHour = jsonObject.getInt("EventTimeToHours");
-                EventTimeToMinute = jsonObject.getInt("EventTimeToMinutes");
-                EventBudget = jsonObject.getInt("EventBudget");
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                OrganizerEmail = sessionOrganiser.getOrganiserEmail();
+                EventType = sessionOrganiser.getEventType();
+                EventDateDayOfMonth = sessionOrganiser.getEventDateDayOfMonth();
+                EventDateMonth = sessionOrganiser.getEventDateMonth();
+                EventDateYear = sessionOrganiser.getEventDateYear();
+                EventTimeFromHour = sessionOrganiser.getEventTimeFromHours();
+                EventTimeFromMinute = sessionOrganiser.getEventTimeFromMinutes();
+                EventTimeToHour = sessionOrganiser.getEventTimeToHours();
+                EventTimeToMinute = sessionOrganiser.getEventTimeToMinutes();
+                EventBudget = sessionOrganiser.getBudget();
+
+
 
             eventtype.setText(EventType);
             if(EventType.equals("Wedding"))
@@ -239,7 +251,7 @@ public class EditEventDetails extends BaseActivityOrganiser {
             TimeTo = Hours + " : " + Minutes;
             eventTimeTo.setText(TimeTo);
 
-            EventBudget = new SessionOrganiser(this).getBudget();
+            //EventBudget = new SessionOrganiser(this).getBudget();
             eventBudget.setText(EventBudget.toString());
         }
     }
@@ -264,15 +276,16 @@ public class EditEventDetails extends BaseActivityOrganiser {
             }
 
             if(prevBudget!=-1 && EventBudget < (prevBudget - prevBudgetLeft)){
-                EventBudget = new SessionOrganiser(this).getBudget();
+                EventBudget = sessionOrganiser.getBudget();
                 Toast.makeText(EditEventDetails.this,"Total budget is less than your total expenditure which is  "+(prevBudget - prevBudgetLeft)+" rs.",Toast.LENGTH_LONG).show();
                 return;
             }
 
-            prevBudgetLeft = prevBudgetLeft == -1 ? 0 : EventBudget;
-            prevBudget = prevBudget == -1 ? 0 : EventBudget;
+            prevBudgetLeft = prevBudgetLeft == -1 ? EventBudget : prevBudgetLeft;
+            prevBudget = prevBudget == -1 ? EventBudget : prevBudget;
             sessionOrganiser.updateBudget(EventBudget);
             sessionOrganiser.updateBudgetLeft(prevBudgetLeft + EventBudget - prevBudget);
+           // Log.e("budget",EventBudget+" "+prevBudget+" "+prevBudgetLeft);
 
             new BackgroundTask_updateEventDetails().execute();
         }
@@ -281,12 +294,12 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
     public void selectEvent(View view)
     {
-        selecteventtext.setVisibility(View.VISIBLE);
+       // selecteventtext.setVisibility(View.VISIBLE);
         selectEventType.setVisibility(View.VISIBLE);
-        submiteventtype.setVisibility(View.VISIBLE);
+       // submiteventtype.setVisibility(View.VISIBLE);
     }
 
-    public void submitEvent(View view)
+    public void submitEvent()
     {
         if(selectEventType.getCheckedRadioButtonId() == -1)
             Toast.makeText(this, "Select your event...", Toast.LENGTH_SHORT).show();
@@ -313,26 +326,52 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
             eventtype.setText(EventType);
 
-            selecteventtext.setVisibility(View.GONE);
+            //selecteventtext.setVisibility(View.GONE);
             selectEventType.setVisibility(View.GONE);
-            submiteventtype.setVisibility(View.GONE);
+          //  submiteventtype.setVisibility(View.GONE);
         }
     }
 
     public void selectDate(View view)
     {
-        selectdatetext.setVisibility(View.VISIBLE);
+        /*selectdatetext.setVisibility(View.VISIBLE);
         selectDate.setVisibility(View.VISIBLE);
-        submitdate.setVisibility(View.VISIBLE);
+        submitdate.setVisibility(View.VISIBLE);*/
+
+        final Calendar myCalendar = Calendar.getInstance();
+
+        final  DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+
+               /* myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);*/
+
+                dateDayOfMonth = dayOfMonth;
+                dateMonth = monthOfYear;
+                dateYear = year;
+
+                submitDate();
+            }
+
+        };
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(EditEventDetails.this, datePicker, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+            datePickerDialog.show();
+
     }
 
-    public void submitDate(View view)
+    public void submitDate()
     {
-        Integer dateDayOfMonth, dateMonth, dateYear;
 
-        dateDayOfMonth = selectDate.getDayOfMonth();
-        dateMonth = selectDate.getMonth();
-        dateYear = selectDate.getYear();
+
+
 
         // checking for validity of the input date
 
@@ -449,17 +488,33 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
     public void selectTimeFrom(View view)
     {
-        if(CurrentTimeHours == -1)
+        if(CurrentTimeHours == -1  && eventDate.getText().toString().length()==0)
             Toast.makeText(this, "Select Event Date first...", Toast.LENGTH_SHORT).show();
-        else
-        {
-            flagFromInput=true;
+        else {
+            flagFromInput = true;
 
-            inputtimetext.setVisibility(View.VISIBLE);
+           /* inputtimetext.setVisibility(View.VISIBLE);
             inputtimehours.setVisibility(View.VISIBLE);
             inputtimecolon.setVisibility(View.VISIBLE);
             inputtimeminutes.setVisibility(View.VISIBLE);
             submittime.setVisibility(View.VISIBLE);
+        }*/
+
+            Calendar mcurrentTime = Calendar.getInstance();
+            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mcurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+            mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                    eventTimeFrom.setText(selectedHour + ":" + selectedMinute);
+                    timeHours = selectedHour;
+                    timeMinutes = selectedMinute;
+                    submitTime();
+                }
+            }, hour, minute, true);//Yes 24 hour time
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
         }
     }
 
@@ -467,29 +522,45 @@ public class EditEventDetails extends BaseActivityOrganiser {
     {
         if(flagFrom==false)
             Toast.makeText(this, "Select event starting time first", Toast.LENGTH_SHORT).show();
-        else
-        {
-            flagFromInput=false;
+        else {
+            flagFromInput = false;
 
-            inputtimetext.setVisibility(View.VISIBLE);
+           /* inputtimetext.setVisibility(View.VISIBLE);
             inputtimehours.setVisibility(View.VISIBLE);
             inputtimecolon.setVisibility(View.VISIBLE);
             inputtimeminutes.setVisibility(View.VISIBLE);
             submittime.setVisibility(View.VISIBLE);
+        }*/
+            Calendar mcurrentTime = Calendar.getInstance();
+            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mcurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+            mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                    eventTimeTo.setText(selectedHour + ":" + selectedMinute);
+
+                    timeHours = selectedHour;
+                    timeMinutes = selectedMinute;
+
+                    submitTime();
+                }
+            }, hour, minute, true);//Yes 24 hour time
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
         }
     }
 
-    public void submitTime(View view)
+    public void submitTime()
     {
         String time;
-        Integer timeHours, timeMinutes;
 
-        if(inputtimehours.getText().toString().equals("") || inputtimeminutes.getText().toString().equals(""))
+        if(false)//inputtimehours.getText().toString().equals("") || inputtimeminutes.getText().toString().equals(""))
             Toast.makeText(this, "Input time first...", Toast.LENGTH_SHORT).show();
         else
         {
-            timeHours = Integer.parseInt(inputtimehours.getText().toString());
-            timeMinutes = Integer.parseInt(inputtimeminutes.getText().toString());
+            //timeHours = Integer.parseInt(inputtimehours.getText().toString());
+            //timeMinutes = Integer.parseInt(inputtimeminutes.getText().toString());
 
             if(EventDateDayOfMonth==DayOfMonth && EventDateMonth==Month && EventDateYear==Year)     // on selecting the current date
             {
@@ -519,12 +590,16 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
                 if(flagFromInput == false)      // 'To' time is being input
                 {
-                    if(timeHours < EventTimeFromHour)
+                    if(timeHours < EventTimeFromHour) {
                         Toast.makeText(this, "Invalid Duration...", Toast.LENGTH_SHORT).show();
+                        eventTimeTo.setText("");
+                    }
                     else if(timeHours == EventTimeFromHour)
                     {
-                        if(timeMinutes <= EventTimeFromMinute)
+                        if(timeMinutes <= EventTimeFromMinute) {
                             Toast.makeText(this, "Invalid Duration...", Toast.LENGTH_SHORT).show();
+                            eventTimeTo.setText("");
+                        }
                         else
                         {
                             // valid time
@@ -718,10 +793,14 @@ public class EditEventDetails extends BaseActivityOrganiser {
             else {
                 Toast.makeText(getApplicationContext(), "Event details updated successfully...", Toast.LENGTH_LONG).show();
                 SetDrawerFlag.setDrawerFlagEventInput(true);
+                sessionOrganiser.editor.putBoolean(sessionOrganiser.KEY_drawer_flag_event_input,true);
+                sessionOrganiser.editor.commit();
+
+                sessionOrganiser.saveEventDetails(EventType,EventDateDayOfMonth,EventDateMonth,EventDateYear,EventTimeFromHour,
+                        EventTimeFromMinute,EventTimeToHour,EventTimeToMinute);
 
                 // pass the json data to the next activity
-                Intent intent = new Intent(getApplicationContext(), SigningIn.class);
-                intent.putExtra("EmailId", OrganizerEmail);
+                Intent intent = new Intent(getApplicationContext(), DashboardOrganiseActivity.class);
                 startActivity(intent);
                 finish();
             }

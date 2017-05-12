@@ -10,6 +10,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -112,9 +115,37 @@ public class SigningIn extends AppCompatActivity {
             SessionOrganiser sessionOrganiser = new SessionOrganiser(getApplicationContext());
             sessionOrganiser.createLoginSession(json_string);
 
+            try {
+                JSONObject jsonObject = new JSONObject(json_string);
+               // String OrganizerEmail = jsonObject.getString("EmailId");
+                String EventType = jsonObject.getString("EventType");
+                Integer EventDateDayOfMonth = jsonObject.getInt("EventDateDayOfMonth");
+                Integer EventDateMonth = jsonObject.getInt("EventDateMonth");
+                Integer EventDateYear = jsonObject.getInt("EventDateYear");
+                Integer EventTimeFromHours = jsonObject.getInt("EventTimeFromHours");
+                Integer EventTimeFromMinutes = jsonObject.getInt("EventTimeFromMinutes");
+                Integer EventTimeToHours = jsonObject.getInt("EventTimeToHours");
+                Integer  EventTimeToMinutes = jsonObject.getInt("EventTimeToMinutes");
+                Integer EventBudget = jsonObject.getInt("EventBudget");
+               // TotalExpenditure = jsonObject.getInt("TotalExpenditure");
+               Integer BudgetLeft = jsonObject.getInt("BudgetLeft");
+                String organiserMob = jsonObject.getString("OrganizerMob");
+                String organiserAddress = jsonObject.getString("OrganizerAddress");
+
+                sessionOrganiser.saveEventDetails(EventType,EventDateDayOfMonth,EventDateMonth,EventDateYear,EventTimeFromHours,
+                        EventTimeFromMinutes,EventTimeToHours,EventTimeToMinutes);
+                sessionOrganiser.updateBudget(EventBudget);
+                sessionOrganiser.updateBudgetLeft(BudgetLeft);
+                sessionOrganiser.updateOrganiserMobNo(organiserMob);
+                sessionOrganiser.updateOrganiserAddress(organiserAddress);
+
+            }catch (JSONException e){
+
+            }
+
             // pass the json data to the next activity
             Intent intent = new Intent(getApplicationContext(), DashboardOrganiseActivity.class);
-            intent.putExtra("json_data", json_string);
+
             startActivity(intent);
             finish();
         }

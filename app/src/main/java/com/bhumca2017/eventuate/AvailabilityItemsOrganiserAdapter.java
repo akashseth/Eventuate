@@ -54,7 +54,9 @@ public class AvailabilityItemsOrganiserAdapter extends ArrayAdapter <Availabilit
                 availabilityDetailsIntent.putExtra("serviceId",mServiceId);
                 availabilityDetailsIntent.putExtra("serviceAvailabilityId",getItem(position).getServiceAvailabilityId());
                 availabilityDetailsIntent.putExtra("availabilityName",getItem(position).getAvailabilityName());
+                availabilityDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 getContext().startActivity(availabilityDetailsIntent);
+
             }
         });
 

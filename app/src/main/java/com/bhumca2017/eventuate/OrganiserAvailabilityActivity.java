@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class OrganiserAvailabilityActivity extends AppCompatActivity {
+public class OrganiserAvailabilityActivity extends BaseActivityOrganiser {
 
     private static final String LOG_TAG = OrganiserAvailabilityActivity.class.getSimpleName();
     private static String FETCH_AVAIL_URL ;
@@ -109,6 +109,12 @@ public class OrganiserAvailabilityActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new FetchAvailOrganiser().execute();
     }
 
 }

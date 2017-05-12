@@ -196,7 +196,9 @@ public class EmailVerification extends AppCompatActivity {
                 if(UserType.equals("Organizer"))
                 {
                     intent = new Intent(getApplicationContext(), EditProfileOrganizer.class);
-                    intent.putExtra("json_data", json_string);
+                    //intent.putExtra("json_data", json_string);
+                   // Log.e("json_data",json_string);
+                    new SessionOrganiser(EmailVerification.this).createNewRegisterSession(json_string);
                     startActivity(intent);
                     finish();
                 }

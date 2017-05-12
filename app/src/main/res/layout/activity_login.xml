@@ -88,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="SIGN IN"
+                android:textColor="#fff"
                 android:textStyle="bold"
                 android:background="@color/colorPrimary"
                 android:onClick="attemptLogin"/>
@@ -113,6 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="REGISTER"
+                    android:textColor="#fff"
                     android:onClick="newRegistration"
                     android:textStyle="bold"
                     android:background="@color/colorPrimary"
