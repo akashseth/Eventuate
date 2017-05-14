@@ -10,14 +10,16 @@ public class ServiceAvailability {
     private int mAvailabilityId;
     private int mServiceAvailabilityId;
     private String mQuantity;
+    private Integer mServiceId;
 
-    public ServiceAvailability(String availabilityName, String price, int availabilityId, int serviceAvailabilityId ,String quantity)
+    public ServiceAvailability(String availabilityName, String price, int availabilityId, int serviceAvailabilityId ,String quantity,int serviceId)
     {
         mAvailabilityName=availabilityName;
         mPrice=price;
         mAvailabilityId=availabilityId;
         mServiceAvailabilityId = serviceAvailabilityId;
         mQuantity = quantity;
+        mServiceId = serviceId;
     }
 
     public String getAvailabilityName()
@@ -41,5 +43,10 @@ public class ServiceAvailability {
 
     public String getQuantity(){
         return mQuantity;
+    }
+
+    public Integer getServiceId(){
+
+        return  mServiceId;
     }
 }

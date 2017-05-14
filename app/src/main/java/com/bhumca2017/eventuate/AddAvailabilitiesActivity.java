@@ -10,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class AddAvailabilitiesActivity extends BaseActivity {
+public class AddAvailabilitiesActivity extends AppCompatActivity {
 
     Bitmap photo = null;
     private int IMAGE_FROM_GALLERY = 1;
@@ -44,15 +46,24 @@ public class AddAvailabilitiesActivity extends BaseActivity {
     private static String FETCH_Avail_URL;
 
     private ArrayList<String> mAvailabilities;
-    private int mServiceId=2;
+    private int mServiceId;
     private String mNewAvailabilityName;
     private String mSelectedAvailabilityName;
     private boolean mAddedNewAvailability = false;
-    private int mServiceProviderId = 1;
+    private int mServiceProviderId;
+
+    SessionServices sessionServices;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_availabilities);
+
+        sessionServices = new SessionServices(this);
+        mServiceProviderId = sessionServices.getUserId();
+        setServiceId();
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ADD_Avail_URL = getString(R.string.ip_address)+"/Eventuate/Services/AddAvailability.php";
         ADD_Avail_NAME_URL=this.getString(R.string.ip_address)+"/Eventuate/Services/AddAvailabilityName.php";
@@ -91,7 +102,10 @@ public class AddAvailabilitiesActivity extends BaseActivity {
 
 
     }
+    private void setServiceId(){
 
+        mServiceId = getIntent().getIntExtra("serviceId",0);
+    }
     void imageChooserDialog(){
         final CharSequence items[] = {"Take Photo","Choose from Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -225,7 +239,7 @@ public class AddAvailabilitiesActivity extends BaseActivity {
             progressBar.setVisibility(View.GONE);
 
             Spinner availabilityList=(Spinner)findViewById(R.id.availability_list);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, mAvailabilities);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, mAvailabilities);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             availabilityList.setAdapter(adapter);
            if(mAddedNewAvailability) {
@@ -349,9 +363,7 @@ public class AddAvailabilitiesActivity extends BaseActivity {
 
             try {
                 String jsonResponse = requestHandler.sendPostRequest(ADD_Avail_URL,mGetPostDataForAddAvailability());
-                if(jsonResponse.equals("1")){
-                   //
-                }
+                return jsonResponse;
             } catch (IOException e) {
                 Log.e(LOG_TAG,"Problem while requesting get method",e);
             }
@@ -359,10 +371,19 @@ public class AddAvailabilitiesActivity extends BaseActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String result) {
 
             ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.GONE);
+
+            if(result.equals("1")){
+
+                Toast.makeText(AddAvailabilitiesActivity.this,"Successfully added new availability",Toast.LENGTH_LONG).show();
+                finish();
+            } else {
+
+                Toast.makeText(AddAvailabilitiesActivity.this,"Unable to add. Plea try again",Toast.LENGTH_LONG).show();
+            }
 
 
         }
@@ -372,5 +393,21 @@ public class AddAvailabilitiesActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mAddedNewAvailability = false;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+
+        onBackPressed();
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent prevIntent = new Intent(this,ServicesAvailabilitiesActivity.class);
+        prevIntent.putExtra("serviceId",mServiceId);
+        startActivity(prevIntent);
+        finish();
     }
 }

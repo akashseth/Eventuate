@@ -36,7 +36,12 @@ public class SplashScreen extends Activity {
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
 
-                } else {
+                } else if(new SessionServices(SplashScreen.this).isLoggedIn()) {
+                    Intent i = new Intent(SplashScreen.this, DashboardActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+
+                }else {
 
                     Intent i = new Intent(SplashScreen.this, Login.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

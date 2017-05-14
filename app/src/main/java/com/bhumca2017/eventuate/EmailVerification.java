@@ -204,10 +204,18 @@ public class EmailVerification extends AppCompatActivity {
                 }
                 else if(UserType.equals("Service"))
                 {
-                    intent = new Intent(getApplicationContext(), EditProfileServicesActivity.class);
-                   // intent.putExtra("serviceId", 1);
-                    startActivity(intent);
-                    finish();
+                    try {
+                        JSONObject jsonObject = new JSONObject(json_string);
+                        int userIdService = jsonObject.getInt("userId");
+                        String emailId = jsonObject.getString("EmailId");
+                        intent = new Intent(getApplicationContext(), EditProfileServicesActivity.class);
+                       // intent.putExtra("serviceId", 1);
+                        new SessionServices(EmailVerification.this).createLoginSession(userIdService,emailId);
+                        startActivity(intent);
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

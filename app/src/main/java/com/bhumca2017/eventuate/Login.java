@@ -32,6 +32,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Login extends Activity {
 
@@ -180,7 +182,7 @@ public class Login extends Activity {
                     Email = jsonObject.getString("EmailId");
                     Passcode = jsonObject.getString("PassCode");
                     UserType = jsonObject.getString("UserType");
-                    userIdService = jsonObject.getInt("id");
+                    userIdService = jsonObject.getInt("userId");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -199,8 +201,24 @@ public class Login extends Activity {
                     }
                     else if(UserType.equals("Service"))
                     {
+                        try {
+                            jsonObject = new JSONObject(json_string);
+                            String fullName = jsonObject.getString("fullName");
+                            String address = jsonObject.getString("address");
+                            String mobileNo = jsonObject.getString("mobileNo");
+                            JSONArray servicesId = jsonObject.getJSONArray("servicesId");
+                            Set<String>servicesIdSet = new HashSet<>();
+                            for(int i = 0; i < servicesId.length(); i++){
+                                servicesIdSet.add(servicesId.getString(i));
+                            }
+                            new SessionServices(Login.this).updateProfile(servicesIdSet,fullName,mobileNo,address);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                        intent.putExtra("userId", userIdService);
+                        new SessionServices(Login.this).createLoginSession(userIdService,Email);
                         startActivity(intent);
                         finish();
                     }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
-
+    <include layout="@layout/toolbar"></include>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             android:layout_height="30dp"
-            android:text="delete"
+            android:text="delete this availability"
             android:textColor="#fff"
             android:background="#ff0000"/>
         <LinearLayout
@@ -50,6 +51,9 @@
                     android:textColor="#fff"/>
             </LinearLayout>
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,18 +106,13 @@
                 android:background="@color/colorAccent"
                 android:textColor="#fff"/>
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Images"
-            android:textSize="20dp"
-            android:layout_gravity="center"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray">
-
-        </View>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"/>
+    </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -126,17 +125,14 @@
                 android:layout_centerInParent="true"
                 android:text="No images available"/>
             <GridView
+                android:layout_marginTop="10dp"
                 android:id="@+id/avail_images_grid_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numColumns="2">
             </GridView>
+
         </RelativeLayout>
     </LinearLayout>
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
-</RelativeLayout>
+
+</LinearLayout>

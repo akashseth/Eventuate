@@ -30,6 +30,9 @@
             />
     </android.support.design.widget.TextInputLayout>
         />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,7 +89,13 @@
             android:text="Musical"/>
 
     </LinearLayout>
-
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -94,6 +103,7 @@
             android:id="@+id/fullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="50"
             android:hint="Full Name"
             />
     </android.support.design.widget.TextInputLayout>
@@ -105,6 +115,7 @@
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="100"
             android:hint="Address"
             />
     </android.support.design.widget.TextInputLayout>
@@ -115,6 +126,8 @@
         android:id="@+id/mobile_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLength="10"
+        android:inputType="number"
         android:hint="Mobile No"
         />
     </android.support.design.widget.TextInputLayout>

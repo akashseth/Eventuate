@@ -38,6 +38,7 @@ public class ServicesItemAdapter extends ArrayAdapter<Services> {
         serviceId.setId(currentService.getServiceId());
 
         ImageView serviceImage=(ImageView)servicesItemView.findViewById(R.id.service_image);
+        if(currentService.getServiceImagesourceId()!=-1)
         serviceImage.setImageResource(currentService.getServiceImagesourceId());
 
         TextView serviceName=(TextView)servicesItemView.findViewById(R.id.service_name);

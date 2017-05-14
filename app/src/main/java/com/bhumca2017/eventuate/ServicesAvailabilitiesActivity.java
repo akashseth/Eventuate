@@ -20,22 +20,29 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
 
     private static final String LOG_TAG = ServicesAvailabilitiesActivity.class.getSimpleName();
     private static String  FETCH_Avail_LIST_URL;
-    private int mServiceId = 2;
-    private int mServiceProviderId = 8;
+    private int mServiceId;
+    private int mServiceProviderId ;
     ArrayList<ServiceAvailability> mServiceAvailabilitiesList;
+    SessionServices sessionServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services_availibities);
 
+        sessionServices = new SessionServices(this);
+        mServiceProviderId = sessionServices.getUserId();
+
         FETCH_Avail_LIST_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchServiceAvailabilities.php";
+
+        setServiceId();
 
         Button addAvailabilitiesButton=(Button)findViewById(R.id.add_availabilities);
         addAvailabilitiesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addServicesIntent=new Intent(getApplicationContext(),AddAvailabilitiesActivity.class);
+                addServicesIntent.putExtra("serviceId",mServiceId);
                 startActivity(addServicesIntent);
             }
         });
@@ -50,8 +57,8 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
 
     private void setServiceId()
     {
-        Intent serviceActivity=getIntent();
-        mServiceId=serviceActivity.getIntExtra("ServiceID",0);
+        Intent serviceActivity= getIntent();
+        mServiceId=serviceActivity.getIntExtra("serviceId",0);
     }
 
     private ArrayList<ServiceAvailability> getExtractedDataFromJson(String jsonResponse) {
@@ -67,7 +74,7 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
                 Integer availabilityId = jsonObject.getInt("availability_id");
                 String quantity = jsonObject.getString("quantity");
                 ServiceAvailability serviceAvailability = new ServiceAvailability(availabilityName
-                        ,price,availabilityId,serviceAvailabilityId,quantity);
+                        ,price,availabilityId,serviceAvailabilityId,quantity,mServiceId);
                 serviceAvailabilitiesList.add(serviceAvailability);
             }
         } catch (JSONException e) {

@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class ServiceAvailabilityAdapter extends ArrayAdapter<ServiceAvailability> {
 
-    public ServiceAvailabilityAdapter(Context context, ArrayList<ServiceAvailability> serviceAvailibilities)
+    public ServiceAvailabilityAdapter(Context context, ArrayList<ServiceAvailability> serviceAvailabilities)
     {
-        super(context,0,serviceAvailibilities);
+        super(context,0,serviceAvailabilities);
     }
 
     @NonNull
@@ -32,6 +32,7 @@ public class ServiceAvailabilityAdapter extends ArrayAdapter<ServiceAvailability
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             listItemView = layoutInflater.inflate(R.layout.list_of_availibities, parent, false);
         }
+        final Context context = getContext();
         ServiceAvailability serviceAvailability=getItem(position);
 
         TextView availabilityNameView=(TextView)listItemView.findViewById(R.id.availability_name);
@@ -44,13 +45,15 @@ public class ServiceAvailabilityAdapter extends ArrayAdapter<ServiceAvailability
         availabilityEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editAvailIntent=new Intent(getContext(),EditAvailabilitiesActivity.class);
+                Intent editAvailIntent=new Intent(context,EditAvailabilitiesActivity.class);
+                editAvailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 ServiceAvailability serviceAvailability = getItem(position);
                 editAvailIntent.putExtra("serviceAvailabilityId",serviceAvailability.getServiceAvailabilityId());
                 editAvailIntent.putExtra("availabilityName",serviceAvailability.getAvailabilityName());
                 editAvailIntent.putExtra("price",serviceAvailability.getPrice());
                 editAvailIntent.putExtra("quantity",serviceAvailability.getQuantity());
-                getContext().startActivity(editAvailIntent);
+                editAvailIntent.putExtra("serviceId",serviceAvailability.getServiceId());
+                context.startActivity(editAvailIntent);
 
                 /*Log.e("id","this "+getItem(position).getAvailabilityId());
                 Intent availabilityEditIntent=new Intent(getContext(),EditAvailabilitiesActivity.class);

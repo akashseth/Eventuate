@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EditAvailabilitiesActivity extends BaseActivity {
+public class EditAvailabilitiesActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = EditAvailabilitiesActivity.class.getSimpleName();
     private static String UPDATE_PRICE_URL;
@@ -35,11 +36,16 @@ public class EditAvailabilitiesActivity extends BaseActivity {
     private String mAvailabilityName;
     private Integer mServiceAvailabilityId;
     EditText priceView, quantityView;
+    private Integer mServiceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_availabilities);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         UPDATE_PRICE_URL = getString(R.string.ip_address)+"/Eventuate/Services/UpdatePriceQuantity.php";
         DELETE_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/DeleteServiceAvailability.php";
         IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailImagesPath.php";
@@ -92,7 +98,7 @@ public class EditAvailabilitiesActivity extends BaseActivity {
 
         AlertDialog.Builder  builder =new AlertDialog.Builder(this);
         builder.setTitle("Delete Confirmation");
-        builder.setMessage("Are you sure to delete it?");
+        builder.setMessage("Are you sure? You want to delete it?");
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -113,6 +119,7 @@ public class EditAvailabilitiesActivity extends BaseActivity {
 
         mAvailabilityName = getIntent().getStringExtra("availabilityName");
         mServiceAvailabilityId = getIntent().getIntExtra("serviceAvailabilityId",0);
+        mServiceId = getIntent().getIntExtra("serviceId",0);
         priceView.setText(getIntent().getStringExtra("price"));
         quantityView.setText(getIntent().getStringExtra("quantity"));
 
@@ -283,5 +290,21 @@ public class EditAvailabilitiesActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         new FetchAvailImagesPath().execute();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+
+        onBackPressed();
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent prevIntent = new Intent(this,ServicesAvailabilitiesActivity.class);
+        prevIntent.putExtra("serviceId",mServiceId);
+        startActivity(prevIntent);
+        finish();
     }
 }

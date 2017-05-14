@@ -4,5 +4,6 @@
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
+    android:id="@+id/toolbar"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     />
