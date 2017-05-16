@@ -1,6 +1,7 @@
 package com.bhumca2017.eventuate;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,6 +44,7 @@ public class Login extends Activity {
 
     String userEmail, userPass;
     int userIdService;
+    ProgressDialog progressDialog;
 
     Integer attemptsLeft = 3;   // after 3 unsuccessful login attempts, the SIGNIN button will be disabled
 
@@ -107,6 +109,11 @@ public class Login extends Activity {
             // url of php script for handling post registration tasks
             url_verification=getString(R.string.ip_address)+"/eventuate/verification.php";
 
+            progressDialog = new ProgressDialog(Login.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
             super.onPreExecute();
         }
 
@@ -166,6 +173,7 @@ public class Login extends Activity {
         @Override
         protected void onPostExecute(String result) {
 
+            progressDialog.hide();
             if((result.equals("")))
                 Toast.makeText(getApplicationContext(), "No user exists for this Email...Try again!!", Toast.LENGTH_LONG).show();
             else

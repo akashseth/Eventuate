@@ -157,7 +157,7 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/booking_text_linear"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -176,6 +176,7 @@
             tools:text="waiting approval from provider"/>
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/booking_button_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -186,19 +187,19 @@
             android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:text="Cancel"
             android:textColor="#c60000"
-            android:textSize="16sp"/>
+            android:textSize="12sp"/>
         <Button
             android:layout_marginLeft="20dp"
             android:id="@+id/confirm_button"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:text="Confirm"
             android:textColor="#169613"
-            android:textSize="16sp"/>
+            android:textSize="12sp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

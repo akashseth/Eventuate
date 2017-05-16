@@ -121,6 +121,7 @@
         <activity android:name=".BaseActivityOrganiser" />
         <activity android:name=".OrganiserAvailabilityActivity" />
         <activity android:name=".AvailabilityDetailsOrganiserActivity"></activity>
+        <activity android:name=".BookingDetailsServicesActivity"></activity>
     </application>
 
 </manifest>

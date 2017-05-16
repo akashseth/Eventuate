@@ -141,4 +141,11 @@ public class DashboardActivity extends BaseActivity {
             return -1;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
+
+

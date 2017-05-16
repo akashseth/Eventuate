@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/organizer_details_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
@@ -138,10 +139,11 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:gravity="right">
                 <TextView
+                    android:id="@+id/rate_text"
                     android:text="Rate : "
                     android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"

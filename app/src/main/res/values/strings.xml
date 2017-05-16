@@ -37,7 +37,7 @@
     <string name="title_activity_my_bookings">My Bookings</string>
 
     <!--   172.20.10.5  10.0.2.2  192.168.1.5  192.168.43.39 -->
-    <string name="ip_address">http://172.20.10.5</string>
+    <string name="ip_address">http://10.0.2.2</string>
 
     <!--- services -->
     <string name="title_activity_services_booked_details">Services Booked Details</string>

@@ -1,6 +1,7 @@
 package com.bhumca2017.eventuate;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class NewUserRegister extends Activity {
     Button registerUser;
 
     String newUserType, newUserEmailId;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,10 @@ public class NewUserRegister extends Activity {
         {
             // url of php script for handling registration
             url_register=getString(R.string.ip_address)+"/eventuate/register.php";
+            progressDialog = new ProgressDialog(NewUserRegister.this);
+            progressDialog.setMessage("Registering. Please wait... ");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
             super.onPreExecute();
         }
@@ -158,7 +164,7 @@ public class NewUserRegister extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-
+            progressDialog.hide();
             //Log.e("result",result);
             if(result.equals("User already exists...."))
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
