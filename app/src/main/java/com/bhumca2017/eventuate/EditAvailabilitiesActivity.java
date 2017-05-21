@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +58,16 @@ public class EditAvailabilitiesActivity extends AppCompatActivity {
         TextView  availTextView= (TextView)findViewById(R.id.availability_name);
         availTextView.setText(mAvailabilityName);
 
+        TextInputLayout priceHint = (TextInputLayout)findViewById(R.id.price_hint);
+
+        if(mServiceId==6){
+            priceHint.setHint("Price( Rs/km )");
+
+        } else if(mServiceId == 2 || mServiceId ==7 ){
+            priceHint.setHint("Price( Rs/serving )");
+        } else{
+            priceHint.setHint("Price( Rs/day )");
+        }
 
         final Button addImageButton=(Button)findViewById(R.id.add_availability_image);
         addImageButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +87,21 @@ public class EditAvailabilitiesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(priceView.getText().toString().length() == 0) {
+
+                    Toast.makeText(EditAvailabilitiesActivity.this,"Price can't left blank",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(quantityView.getText().toString().length() == 0) {
+
+                    Toast.makeText(EditAvailabilitiesActivity.this,"Quantity can't left blank",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(Integer.parseInt(priceView.getText().toString()) < 1) {
+
+                    Toast.makeText(EditAvailabilitiesActivity.this,"Price must be greater than zero",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 new UpdatePriceQuantityAsyncTask().execute();
             }
         });

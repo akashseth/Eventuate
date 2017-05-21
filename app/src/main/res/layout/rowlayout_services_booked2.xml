@@ -156,7 +156,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/booking_text_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
             tools:text="waiting approval from provider"/>
     </LinearLayout>
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/booking_button_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

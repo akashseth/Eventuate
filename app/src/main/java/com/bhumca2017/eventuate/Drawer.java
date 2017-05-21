@@ -311,10 +311,10 @@ public class Drawer extends AppCompatActivity
             // Go to My Bookings
             new BackgroundTask_viewBookings().execute();
         }
-        else if (id == R.id.nav_sendinvitations)
+      /*  else if (id == R.id.nav_sendinvitations)
         {
             // send invitations, link to gmail is to be provided
-        }
+        }*/
         else if (id == R.id.nav_aboutus)
         {
             // Go to About Us

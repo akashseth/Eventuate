@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="5dp"
+
     >
+    <include layout="@layout/toolbar"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
         <Button
             android:id="@+id/click_picture"
@@ -48,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Upload Image"
+        android:layout_margin="5dp"
         android:textColor="#fff"
         android:background="@color/colorPrimary"
         />

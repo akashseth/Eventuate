@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:hint="Service"
+                    android:hint="Service Provider"
                     android:textSize="18sp"/>
 
              </RadioGroup>

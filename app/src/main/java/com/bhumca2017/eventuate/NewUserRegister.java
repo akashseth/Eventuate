@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class NewUserRegister extends Activity {
+public class NewUserRegister extends AppCompatActivity {
 
     RadioGroup userType;
     RadioButton userTypeOrganizer, userTypeService;
@@ -66,6 +67,11 @@ public class NewUserRegister extends Activity {
 
     public void verifyEmail(View view)
     {
+        if( !Patterns.EMAIL_ADDRESS.matcher(newUserEmail.getText()).matches()) {
+
+            Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(userType.getCheckedRadioButtonId()==-1)      // when no radio button is checked
         {
             Toast.makeText(this, "Select User Type", Toast.LENGTH_SHORT).show();
@@ -80,6 +86,7 @@ public class NewUserRegister extends Activity {
 
             // extracting the new user email id
             newUserEmailId = newUserEmail.getText().toString();
+
 
             new BackgroundTaskRegistration().execute();
         }

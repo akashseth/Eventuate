@@ -153,6 +153,8 @@ public class EditEventDetails extends BaseActivityOrganiser {
         submitEventDetails = (Button) findViewById(R.id.button_submit_eventdetails);
 
 
+
+
         // parsing the received json string
 
         // extracting the json string
@@ -162,6 +164,13 @@ public class EditEventDetails extends BaseActivityOrganiser {
         {
 
                 OrganizerEmail = sessionOrganiser.getOrganiserEmail();
+                eventDate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        selectDate();
+                    }
+                });
 
         }
 
@@ -222,6 +231,7 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
             date = DayOfMonth + " / " + Month + " / " + Year;
             eventDate.setText(date);
+
 
 
             String Hours, Minutes, TimeFrom, TimeTo;
@@ -332,7 +342,7 @@ public class EditEventDetails extends BaseActivityOrganiser {
         }
     }
 
-    public void selectDate(View view)
+    public void selectDate()
     {
         /*selectdatetext.setVisibility(View.VISIBLE);
         selectDate.setVisibility(View.VISIBLE);

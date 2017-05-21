@@ -55,6 +55,7 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
     SessionOrganiser sessionOrganiser;
     int budgetLeft;
     int eventBudget;
+    EditText editDistance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,17 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
 
         setIntentExtraData();
         priceTextView = (TextView)findViewById(R.id.rate);
-        priceTextView.setText(mPrice+"/day");
+        editDistance = (EditText)findViewById(R.id.edit_distance);
+        String rateType;
+        if(mServiceId==6){
+            rateType = "/km + 50rs";
+            editDistance.setVisibility(View.VISIBLE);
+        } else if(mServiceId == 2 || mServiceId ==7 ){
+            rateType = "/serving";
+        } else{
+            rateType = "/day";
+        }
+        priceTextView.setText(mPrice+rateType);
 
         availabilityNameTextView = (TextView)findViewById(R.id.availability_name);
         availabilityNameTextView.setText(mAvailabilityName);
@@ -117,6 +128,21 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
 
     void checkDataFilled(){
 
+        if(mServiceId==6){
+
+            String distance = editDistance.getText().toString();
+            if(distance.length()==0){
+
+                Toast.makeText(getApplicationContext(),"Please enter distance",Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(Integer.parseInt(distance) <= 1) {
+
+                Toast.makeText(getApplicationContext(),"Please enter distance greater than 1 km",Toast.LENGTH_LONG).show();
+                return;
+            }
+
+        }
 
         String quantity = quantityEditText.getText().toString();
         if(quantity.length()==0){
@@ -130,6 +156,11 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
             return;
         }
         int totalAmount = Integer.parseInt(mPrice)*(Integer.parseInt(quantityEditText.getText().toString()));
+        if(mServiceId==6){
+
+            totalAmount *= Integer.parseInt(editDistance.getText().toString());
+            totalAmount += 50;
+        }
         if(Integer.parseInt(quantity) > this.quantityAvailable){
 
             Toast.makeText(getApplicationContext(),"Please choose quantity less than or equal to available quantity",Toast.LENGTH_LONG).show();
@@ -418,6 +449,11 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
     private HashMap<String, String> mGetPostDataForAddAvailabilityName(){
 
         int totalAmount = Integer.parseInt(mPrice)*(Integer.parseInt(quantityEditText.getText().toString()));
+        if(mServiceId==6){
+
+            totalAmount *= Integer.parseInt(editDistance.getText().toString());
+            totalAmount += 50;
+        }
         int amountPaid=0,amountDue=0;
         budgetLeft = budgetLeft - totalAmount;
         if(budgetLeft<0){
@@ -467,7 +503,7 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
             } catch (IOException e) {
                 Log.e(LOG_TAG,"Problem while requesting get method",e);
             }
-            return null;
+            return new HashMap<>();
         }
 
         @Override

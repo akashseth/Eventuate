@@ -47,12 +47,12 @@
         android:minWidth="150dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
+        android:id="@+id/price_hint"
         android:layout_height="wrap_content">
         <EditText
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Price(in rupees)"
             android:maxLength="6"
             android:inputType="number"
             />

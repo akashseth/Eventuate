@@ -14,6 +14,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-public class AddAvailabilityImageActivity extends BaseActivity {
+public class AddAvailabilityImageActivity extends AppCompatActivity {
 
     Bitmap photo = null;
     private int IMAGE_FROM_GALLERY = 1;
@@ -37,17 +39,20 @@ public class AddAvailabilityImageActivity extends BaseActivity {
 
     private static final String LOG_TAG = AddAvailabilityImageActivity.class.getSimpleName();
     private Integer mServiceAvailabilityId;
-    private String mAvailabilityName="room";
+    private String mAvailabilityName;
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_availability_image);
 
+        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         setIntentExtraValue();
 
         UPLOAD_URL=getString(R.string.ip_address)+"/Eventuate/Services/AddAvailabilityImage.php";
-        setContentView(R.layout.activity_add_availability_image);
 
         Button uploadImgButton=(Button)findViewById(R.id.upload_Image);
 
@@ -153,7 +158,7 @@ public class AddAvailabilityImageActivity extends BaseActivity {
         protected void onPreExecute() {
 
             progressDialog = new ProgressDialog(AddAvailabilityImageActivity.this);
-            progressDialog.setMessage("Uploading please wait...");
+            progressDialog.setMessage("Uploading. Please wait...");
             progressDialog.setCancelable(false);
             progressDialog.show();
         }
@@ -188,6 +193,18 @@ public class AddAvailabilityImageActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+
+        onBackPressed();
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
 
 

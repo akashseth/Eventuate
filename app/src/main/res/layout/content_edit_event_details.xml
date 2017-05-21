@@ -171,7 +171,6 @@
                 android:layout_height="wrap_content"
                 android:hint="DD / MM / YYYY"
                 android:layout_marginLeft="20dp"
-                android:onClick="selectDate"
                 android:focusable="false"
                 android:textSize="18sp"/>
 

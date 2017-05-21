@@ -15,7 +15,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_new_user_register">NewUserRegister</string>
+    <string name="title_activity_new_user_register">Register</string>
     <string name="title_activity_email_verification">User Verification</string>
     <string name="title_activity_edit_profile_organizer">Edit Profile</string>
 
@@ -40,6 +40,6 @@
     <string name="ip_address">http://10.0.2.2</string>
 
     <!--- services -->
-    <string name="title_activity_services_booked_details">Services Booked Details</string>
+    <string name="title_activity_services_booked_details">Bookings</string>
 
 </resources>

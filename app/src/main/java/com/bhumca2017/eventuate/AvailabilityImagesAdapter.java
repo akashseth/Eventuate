@@ -48,7 +48,7 @@ public class AvailabilityImagesAdapter extends ArrayAdapter<AvailabilityImages> 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View listItemView = convertView;
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder ;
         if(listItemView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());

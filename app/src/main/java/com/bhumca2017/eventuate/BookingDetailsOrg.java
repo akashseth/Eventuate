@@ -68,7 +68,16 @@ public class BookingDetailsOrg extends AppCompatActivity {
 
         setIntentExtraData();
         priceTextView = (TextView)findViewById(R.id.rate);
-        priceTextView.setText(mPrice+"/day");
+        String rateType;
+        if(mServiceId==6){
+            rateType = "/km + 50rs";
+        } else if(mServiceId == 2 || mServiceId ==7 ){
+            rateType = "/serving";
+        } else{
+            rateType = "/day";
+        }
+        priceTextView.setText(mPrice+rateType);
+
 
         TextView quantityNameTextView = (TextView)findViewById(R.id.quantity_text);
         quantityNameTextView.setText("Quantity : ");

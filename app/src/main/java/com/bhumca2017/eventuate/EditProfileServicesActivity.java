@@ -36,6 +36,8 @@ public class EditProfileServicesActivity extends BaseActivity {
     Set<String> leavingServicesId;
     String leavingServiceMessage;
     Set<String> servicesOptedSet;
+
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -240,8 +242,11 @@ public class EditProfileServicesActivity extends BaseActivity {
         protected void onPreExecute() {
 
             sessionServices.updateProfile(servicesOptedSet,fullName,mobNo,address);
-            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-            progressBar.setVisibility(View.VISIBLE);
+
+            progressDialog = new ProgressDialog(EditProfileServicesActivity.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
         }
 
         @Override
@@ -260,8 +265,7 @@ public class EditProfileServicesActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(String response) {
-            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-            progressBar.setVisibility(View.GONE);
+            progressDialog.hide();
 
             Toast.makeText(EditProfileServicesActivity.this,"Profile updated successfully",Toast.LENGTH_SHORT).show();
 

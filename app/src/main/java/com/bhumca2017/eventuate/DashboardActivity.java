@@ -124,6 +124,8 @@ public class DashboardActivity extends BaseActivity {
 
                     Intent intent=new Intent(getApplicationContext(),ServicesAvailabilitiesActivity.class);
                     intent.putExtra("serviceId",adapter.getItem(position).getServiceId());
+                    intent.putExtra("serviceName",adapter.getItem(position).getServiceName());
+
                     // Log.e("id","this "+adapter.getItem(position).getServiceId());
                     startActivity(intent);
                 }

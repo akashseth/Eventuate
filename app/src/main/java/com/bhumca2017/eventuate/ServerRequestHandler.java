@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -76,8 +77,8 @@ public class ServerRequestHandler {
 
         try {
             connection = (HttpURLConnection) url.openConnection();
-            connection.setReadTimeout(1000);
-            connection.setConnectTimeout(1500);
+            connection.setReadTimeout(50000);
+            connection.setConnectTimeout(7000);
             connection.setRequestMethod("POST");
             //connection.connect();
 
@@ -99,8 +100,11 @@ public class ServerRequestHandler {
                 jsonResponse = getJSONResponse(inputStream);
             }
 
-        } catch (IOException e) {
-            Log.e(LOG_TAG,"Problem retrieving the earthquake JSON results.", e);
+        } catch (SocketTimeoutException e) {
+            Log.e(LOG_TAG,"Problem retrieving the JSON results.", e);
+        }
+        catch (IOException e) {
+            Log.e(LOG_TAG,"Problem retrieving the JSON results.", e);
         }
         finally {
             if(connection != null) {

@@ -61,7 +61,7 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
         // extracts the json string
        // json_string = getIntent().getExtras().getString("json_data");
 
-        if(sessionOrganiser.getDrawerFlagProfileInput() == true)       // organizer data exists in the database
+       // if(sessionOrganiser.getDrawerFlagProfileInput() == true)       // organizer data exists in the database
         {
 
                 OrganizerEmail = sessionOrganiser.getOrganiserEmail();

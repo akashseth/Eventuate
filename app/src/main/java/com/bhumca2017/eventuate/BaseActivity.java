@@ -49,9 +49,9 @@ public class BaseActivity extends AppCompatActivity {
         super.setContentView(fullLayout);
 
         mDrawerItems = new String[4];
-        mDrawerItems[0]="Edit Profile";
-        mDrawerItems[1]="View Bookings";
-        mDrawerItems[2]="Home";
+        mDrawerItems[0]="View Bookings";
+        mDrawerItems[1]="Home";
+        mDrawerItems[2]="Edit Profile";
         mDrawerItems[3]="Logout";
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -65,18 +65,19 @@ public class BaseActivity extends AppCompatActivity {
 
                        switch (position) {
                            case 0:
-                               Intent editProfile=new Intent(getApplicationContext(),EditProfileServicesActivity.class);
-                               startActivity(editProfile);
+                               Intent BookingsIntent=new Intent(getApplicationContext(),ServicesBookedActivity.class);
+                               startActivity(BookingsIntent);
+
                                finish();
                                return;
                            case 1:
-                               Intent BookingsIntent=new Intent(getApplicationContext(),ServicesBookedActivity.class);
-                               startActivity(BookingsIntent);
+                               Intent dashboard=new Intent(getApplicationContext(),DashboardActivity.class);
+                               startActivity(dashboard);
                                finish();
                                return;
                            case 2:
-                               Intent dashboard=new Intent(getApplicationContext(),DashboardActivity.class);
-                               startActivity(dashboard);
+                               Intent editProfile=new Intent(getApplicationContext(),EditProfileServicesActivity.class);
+                               startActivity(editProfile);
                                finish();
                                return;
                            case 3:

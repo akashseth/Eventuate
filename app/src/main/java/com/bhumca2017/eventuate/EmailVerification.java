@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -88,7 +89,7 @@ public class EmailVerification extends AppCompatActivity {
         email.setText(Email);
         passcode.setText(Passcode);
 
-        Toast.makeText(this, Passcode, Toast.LENGTH_SHORT).show();      // remove this after passcode is sent to email
+       // Toast.makeText(this, Passcode, Toast.LENGTH_SHORT).show();      // remove this after passcode is sent to email
     }
 
     public void attemptSignIn(View view)
@@ -96,6 +97,12 @@ public class EmailVerification extends AppCompatActivity {
         String attempt_Passcode;
 
         attempt_Passcode = passcode.getText().toString();
+
+        if( !Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()) {
+
+            Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if(!(attempt_Passcode.equals(Passcode)))
         {

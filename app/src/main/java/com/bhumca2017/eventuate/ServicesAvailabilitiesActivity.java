@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +25,7 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
     private int mServiceProviderId ;
     ArrayList<ServiceAvailability> mServiceAvailabilitiesList;
     SessionServices sessionServices;
+    private String mServiceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,9 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
             }
         });
 
+        TextView serviceNameTextView = (TextView)findViewById(R.id.service_name);
+        serviceNameTextView.setText(mServiceName);
+
 
         new FetchAvailabilityListAsyncTask().execute();
 
@@ -59,6 +64,7 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
     {
         Intent serviceActivity= getIntent();
         mServiceId=serviceActivity.getIntExtra("serviceId",0);
+        mServiceName = serviceActivity.getStringExtra("serviceName");
     }
 
     private ArrayList<ServiceAvailability> getExtractedDataFromJson(String jsonResponse) {

@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -76,6 +77,12 @@ public class Login extends Activity {
 
         userEmail=emailId.getText().toString();
         userPass=passCode.getText().toString();
+
+        if( !Patterns.EMAIL_ADDRESS.matcher(emailId.getText()).matches()) {
+
+            Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (userEmail.equals("") || userPass.equals(""))
         {

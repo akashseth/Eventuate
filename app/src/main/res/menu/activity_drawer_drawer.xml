@@ -24,10 +24,6 @@
             android:title="My Bookings"
             android:icon="@drawable/mybookings" />
         <item
-            android:id="@+id/nav_sendinvitations"
-            android:title="Invite Guests"
-            android:icon="@drawable/invite"/>
-        <item
             android:id="@+id/nav_aboutus"
             android:title="Contact Us"
             android:icon="@drawable/aboutus"/>

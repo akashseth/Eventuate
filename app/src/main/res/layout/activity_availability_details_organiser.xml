@@ -188,32 +188,59 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:id="@+id/booking_details"
         >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/edit_distance"
+                    android:visibility="gone"
+                    android:minWidth="140dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Distance(in km)"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
-            android:minWidth="80dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/edit_quantity"
+                android:minWidth="80dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Quantity"
                 android:inputType="number"
-                android:maxLength="2"
+                android:maxLength="3"
                 />
         </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:layout_marginRight="10dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Payment Method"/>
         <RadioGroup
             android:id="@+id/payment_method"
@@ -237,13 +264,14 @@
     </LinearLayout>
         <Button
             android:id="@+id/book_availability"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:textColor="#fff"
             android:textStyle="bold"
             android:text="Book"
-            android:layout_gravity="right|bottom"/>
+            android:layout_gravity="right|center"/>
     </LinearLayout>
     </LinearLayout>
 </LinearLayout>

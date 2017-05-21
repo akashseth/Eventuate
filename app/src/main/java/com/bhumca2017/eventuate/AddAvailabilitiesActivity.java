@@ -1,5 +1,6 @@
 package com.bhumca2017.eventuate;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -53,6 +55,11 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
     private int mServiceProviderId;
 
     SessionServices sessionServices;
+
+    EditText priceView, quantityView;
+
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +75,19 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
         ADD_Avail_URL = getString(R.string.ip_address)+"/Eventuate/Services/AddAvailability.php";
         ADD_Avail_NAME_URL=this.getString(R.string.ip_address)+"/Eventuate/Services/AddAvailabilityName.php";
         FETCH_Avail_URL=this.getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailability.php";
+
+        priceView = (EditText)findViewById(R.id.price);
+        quantityView = (EditText)findViewById(R.id.quantity);
+        TextInputLayout priceHint = (TextInputLayout)findViewById(R.id.price_hint);
+
+        if(mServiceId==6){
+            priceHint.setHint("Price( Rs/km )");
+
+        } else if(mServiceId == 2 || mServiceId ==7 ){
+            priceHint.setHint("Price( Rs/serving )");
+        } else{
+            priceHint.setHint("Price( Rs/day )");
+        }
 
         new FetchAvailabilityAsyncTask().execute();
 
@@ -95,6 +115,22 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
         addAvailabilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(priceView.getText().toString().length() == 0) {
+
+                    Toast.makeText(AddAvailabilitiesActivity.this,"Price can't left blank",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(quantityView.getText().toString().length() == 0) {
+
+                    Toast.makeText(AddAvailabilitiesActivity.this,"Quantity can't left blank",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(Integer.parseInt(priceView.getText().toString()) < 1) {
+
+                    Toast.makeText(AddAvailabilitiesActivity.this,"Price must be greater than zero",Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 new AddAvailabilityAsyncTask().execute();
             }
@@ -289,8 +325,10 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-            progressBar.setVisibility(View.VISIBLE);
+            progressDialog = new ProgressDialog(AddAvailabilitiesActivity.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
         }
 
         @Override
@@ -313,8 +351,7 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
 
-            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-            progressBar.setVisibility(View.GONE);
+            progressDialog.hide();
 
             new FetchAvailabilityAsyncTask().execute();
 
@@ -326,7 +363,7 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
         Spinner spinner = (Spinner)findViewById(R.id.availability_list);
         mSelectedAvailabilityName = spinner.getSelectedItem().toString();
 
-        TextView priceView = (TextView)findViewById(R.id.price);
+
         String price = priceView.getText().toString();
 
         HashMap<String ,String> postData = new HashMap<>();
@@ -341,7 +378,7 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
             postData.put("base64", getImgString());
         }
 
-        TextView quantityView = (TextView)findViewById(R.id.quantity);
+
         String quantity = quantityView.getText().toString();
         postData.put("quantity",quantity);
 
@@ -352,8 +389,10 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-            progressBar.setVisibility(View.VISIBLE);
+           progressDialog = new ProgressDialog(AddAvailabilitiesActivity.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
         }
 
         @Override
@@ -373,8 +412,7 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
-            progressBar.setVisibility(View.GONE);
+           progressDialog.hide();
 
             if(result.equals("1")){
 
@@ -382,7 +420,7 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
                 finish();
             } else {
 
-                Toast.makeText(AddAvailabilitiesActivity.this,"Unable to add. Plea try again",Toast.LENGTH_LONG).show();
+                Toast.makeText(AddAvailabilitiesActivity.this,"Unable to add. Please try again",Toast.LENGTH_LONG).show();
             }
 
 
