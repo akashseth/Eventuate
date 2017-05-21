@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:hint="Passcode"
-                    android:inputType="textPassword"
+                    android:inputType="numberPassword"
                     android:maxLines="1"
                     android:textSize="18sp" />
 

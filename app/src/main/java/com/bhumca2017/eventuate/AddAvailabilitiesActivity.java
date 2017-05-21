@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class AddAvailabilitiesActivity extends AppCompatActivity {
 
@@ -72,9 +73,9 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ADD_Avail_URL = getString(R.string.ip_address)+"/Eventuate/Services/AddAvailability.php";
-        ADD_Avail_NAME_URL=this.getString(R.string.ip_address)+"/Eventuate/Services/AddAvailabilityName.php";
-        FETCH_Avail_URL=this.getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailability.php";
+        ADD_Avail_URL = getString(R.string.ip_address)+"/eventuate/Services/AddAvailability.php";
+        ADD_Avail_NAME_URL=this.getString(R.string.ip_address)+"/eventuate/Services/AddAvailabilityName.php";
+        FETCH_Avail_URL=this.getString(R.string.ip_address)+"/eventuate/Services/FetchAvailability.php";
 
         priceView = (EditText)findViewById(R.id.price);
         quantityView = (EditText)findViewById(R.id.quantity);
@@ -363,7 +364,7 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
         Spinner spinner = (Spinner)findViewById(R.id.availability_list);
         mSelectedAvailabilityName = spinner.getSelectedItem().toString();
 
-
+        StringTokenizer tokenizer = new StringTokenizer(mSelectedAvailabilityName," ");
         String price = priceView.getText().toString();
 
         HashMap<String ,String> postData = new HashMap<>();
@@ -371,7 +372,7 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
         postData.put("serviceId", mServiceId+"");
         postData.put("availabilityName",mSelectedAvailabilityName);
         postData.put("price",price);
-        postData.put("imageName",mSelectedAvailabilityName+"-"+(new Date().getTime())+".jpg");
+        postData.put("imageName",tokenizer.nextToken()+"-"+(new Date().getTime())+".jpg");
         if(photo == null) {
             postData.put("base64","null");
         } else {

@@ -27,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 
 public class AddAvailabilityImageActivity extends AppCompatActivity {
@@ -52,7 +53,7 @@ public class AddAvailabilityImageActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         setIntentExtraValue();
 
-        UPLOAD_URL=getString(R.string.ip_address)+"/Eventuate/Services/AddAvailabilityImage.php";
+        UPLOAD_URL=getString(R.string.ip_address)+"/eventuate/Services/AddAvailabilityImage.php";
 
         Button uploadImgButton=(Button)findViewById(R.id.upload_Image);
 
@@ -140,9 +141,10 @@ public class AddAvailabilityImageActivity extends AppCompatActivity {
 
     private HashMap<String, String> mGetPostDataForAddImage(){
 
+        StringTokenizer tokenizer = new StringTokenizer(mAvailabilityName," ");
         HashMap<String ,String> postData = new HashMap<>();
         postData.put("serviceAvailabilityId", mServiceAvailabilityId.toString());
-        postData.put("imageName",mAvailabilityName+"-"+(new Date().getTime())+".jpg");
+        postData.put("imageName",tokenizer.nextToken()+"-"+(new Date().getTime())+".jpg");
         if(photo == null) {
             postData.put("base64","null");
         } else {

@@ -47,9 +47,9 @@ public class EditAvailabilitiesActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        UPDATE_PRICE_URL = getString(R.string.ip_address)+"/Eventuate/Services/UpdatePriceQuantity.php";
-        DELETE_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/DeleteServiceAvailability.php";
-        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailImagesPath.php";
+        UPDATE_PRICE_URL = getString(R.string.ip_address)+"/eventuate/Services/UpdatePriceQuantity.php";
+        DELETE_AVAIL_URL = getString(R.string.ip_address)+"/eventuate/Services/DeleteServiceAvailability.php";
+        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/eventuate/Services/FetchAvailImagesPath.php";
 
         priceView = (EditText)findViewById(R.id.edit_price);
         quantityView= (EditText)findViewById(R.id.edit_quantity);
@@ -247,7 +247,7 @@ public class EditAvailabilitiesActivity extends AppCompatActivity {
             for(int i =0 ;i < jsonArray.length(); i++){
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String imagePath = getString(R.string.ip_address)+"/Eventuate/availabilityImages/";
+                String imagePath = getString(R.string.ip_address)+"/eventuate/availabilityImages/";
                 String imageName =  jsonObject.getString("image_location");
                 if(!imageName.equals("none")) {
                     imagesPathList.add(new AvailabilityImages(jsonObject.getInt("id"), imagePath + imageName));

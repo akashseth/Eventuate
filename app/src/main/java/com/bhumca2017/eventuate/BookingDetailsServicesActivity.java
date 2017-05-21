@@ -52,9 +52,9 @@ public class BookingDetailsServicesActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FETCH_ORGANISER_PROFILE_URL = getString(R.string.ip_address)+"/Eventuate/FetchProfileOrg.php";
+        FETCH_ORGANISER_PROFILE_URL = getString(R.string.ip_address)+"/eventuate/FetchProfileOrg.php";
 
-        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailImagesPath.php";
+        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/eventuate/Services/FetchAvailImagesPath.php";
 
 
 
@@ -174,7 +174,7 @@ public class BookingDetailsServicesActivity extends AppCompatActivity {
             for(int i =0 ;i < jsonArray.length(); i++){
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String imagePath = getString(R.string.ip_address)+"/Eventuate/availabilityImages/";
+                String imagePath = getString(R.string.ip_address)+"/eventuate/availabilityImages/";
                 String imageName =  jsonObject.getString("image_location");
                 if(!imageName.equals("none")) {
                     imagesPathList.add(new AvailabilityImages(jsonObject.getInt("id"), imagePath + imageName));

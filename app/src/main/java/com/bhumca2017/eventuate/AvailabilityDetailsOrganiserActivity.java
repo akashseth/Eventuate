@@ -66,10 +66,10 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FETCH_SERVICES_PROFILE_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchProfile.php";
-        FETCH_AVAIL_QUANTITY_URL = getString(R.string.ip_address)+"/Eventuate/FetchAvailabilityQuantity.php";
-        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailImagesPath.php";
-        BOOK_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/BookAvailability.php";
+        FETCH_SERVICES_PROFILE_URL = getString(R.string.ip_address)+"/eventuate/Services/FetchProfile.php";
+        FETCH_AVAIL_QUANTITY_URL = getString(R.string.ip_address)+"/eventuate/FetchAvailabilityQuantity.php";
+        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/eventuate/Services/FetchAvailImagesPath.php";
+        BOOK_AVAIL_URL = getString(R.string.ip_address)+"/eventuate/BookAvailability.php";
 
         sessionOrganiser = new SessionOrganiser(this);
         budgetLeft = sessionOrganiser.getBudgetLeft();

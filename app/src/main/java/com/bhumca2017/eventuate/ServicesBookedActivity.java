@@ -56,7 +56,7 @@ public class ServicesBookedActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services_booked);
 
-        PERFORM_ACTION_BOOKING_URL = getString(R.string.ip_address)+"/Eventuate/Services/UpdateBookingStatus.php";
+        PERFORM_ACTION_BOOKING_URL = getString(R.string.ip_address)+"/eventuate/Services/UpdateBookingStatus.php";
 
         sessionServices = new SessionServices(this);
 
@@ -240,8 +240,10 @@ public class ServicesBookedActivity extends BaseActivity {
         @Override
         protected void onPreExecute()
         {
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
             // url of php script for extracting the expenditure details
-            url_viewBookings=getString(R.string.ip_address)+"/Eventuate/Services/ViewBookingsServices.php";
+            url_viewBookings=getString(R.string.ip_address)+"/eventuate/Services/ViewBookingsServices.php";
             super.onPreExecute();
         }
 
@@ -300,7 +302,9 @@ public class ServicesBookedActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String result) {
 
-             Log.e("resultJson",result);
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+             //Log.e("resultJson",result);
             if((result.equals("No Bookings")))
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
             else

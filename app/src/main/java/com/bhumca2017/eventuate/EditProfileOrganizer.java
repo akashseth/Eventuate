@@ -1,5 +1,6 @@
 package com.bhumca2017.eventuate;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,8 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
     TextView organizer_name, organizer_mob, organizer_address;
     Button submit_organizer_profile;
     SessionOrganiser sessionOrganiser;
+
+    ProgressDialog progressDialog;
 
 
     boolean drawer_flag = SetDrawerFlag.getDrawerFlagProfile();
@@ -111,6 +114,11 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
         @Override
         protected void onPreExecute()
         {
+            progressDialog = new ProgressDialog(EditProfileOrganizer.this);
+            progressDialog.setMessage("please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
             // url of php script for handling profile updation tasks for the organizer
             url_updateOrganizerProfile=getString(R.string.ip_address)+"/eventuate/updateOrganizerProfile.php";
 
@@ -181,6 +189,7 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
         @Override
         protected void onPostExecute(String result) {
 
+            progressDialog.hide();
             if((result.equals("")))
                 Toast.makeText(getApplicationContext(), "Profile not updated...Try again!!", Toast.LENGTH_LONG).show();
             else

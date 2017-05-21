@@ -43,7 +43,7 @@ public class EditProfileServicesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edite_profile_services);
 
-        UPLOAD_URL=getString(R.string.ip_address)+"/Eventuate/Services/EditProfile.php";
+        UPLOAD_URL=getString(R.string.ip_address)+"/eventuate/Services/EditProfile.php";
 
         sessionServices = new SessionServices(this);
         userId = sessionServices.getUserId();

@@ -2,6 +2,7 @@ package com.bhumca2017.eventuate;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.UrlQuerySanitizer;
@@ -62,6 +63,7 @@ public class EditExpenditure extends BaseActivityOrganiser {
     ExpenditureDetailsAdapter expenditureDetailsAdapter;
     ListView expenditureDetails;
     SessionOrganiser sessionOrganiser;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,11 @@ public class EditExpenditure extends BaseActivityOrganiser {
         protected void onPreExecute()
         {
             // url of php script for extracting the expenditure details
+            progressDialog = new ProgressDialog(EditExpenditure.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
             url_extractExpenditure=getString(R.string.ip_address)+"/eventuate/extract_expenditure.php";
             super.onPreExecute();
         }
@@ -171,7 +178,8 @@ public class EditExpenditure extends BaseActivityOrganiser {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.e("expend",result);
+            //Log.e("expend",result);
+            progressDialog.hide();
             if((result.equals("No expenditure found")))
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
             else

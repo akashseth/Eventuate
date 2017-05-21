@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -149,6 +150,9 @@ public class MyBookings extends BaseActivityOrganiser {
         {
             // url of php script for extracting the expenditure details
             url_viewBookings=getString(R.string.ip_address)+"/eventuate/viewbookings_organizer.php";
+
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
             super.onPreExecute();
         }
 
@@ -200,13 +204,10 @@ public class MyBookings extends BaseActivityOrganiser {
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
         protected void onPostExecute(String result) {
 
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
            // Log.e("resultJson",result);
             if((result.equals("No Bookings")))
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();

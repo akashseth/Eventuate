@@ -34,7 +34,7 @@ public class DashboardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
 
-        FETCH_SERVICES_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchServicesProviding.php";
+        FETCH_SERVICES_URL = getString(R.string.ip_address)+"/eventuate/Services/FetchServicesProviding.php";
         sessionServices = new SessionServices(this);
         userId = sessionServices.getUserId();
 

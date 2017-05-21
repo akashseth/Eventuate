@@ -9,7 +9,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/cancel"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="2dp"
         android:layout_gravity="end"/>
     <ImageView
         android:id="@+id/avail_image_view"

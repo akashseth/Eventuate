@@ -39,7 +39,7 @@ public class AvailabilityImagesAdapter extends ArrayAdapter<AvailabilityImages> 
 
         super(context,0,availabilityImagesList);
         this.context = context;
-        DELETE_IMAGE_URL = context.getString(R.string.ip_address)+"/Eventuate/Services/DeleteImgAvail.php";
+        DELETE_IMAGE_URL = context.getString(R.string.ip_address)+"/eventuate/Services/DeleteImgAvail.php";
         mType = type;
     }
 

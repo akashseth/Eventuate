@@ -3,6 +3,7 @@ package com.bhumca2017.eventuate;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -61,6 +62,8 @@ public class EmailVerification extends AppCompatActivity {
     TextView email;
     EditText passcode;
     Button signInButton;
+
+    ProgressDialog progressDialog;
 
     Integer attemptsLeft = 3;   // after 3 unsuccessful login attempts, the SIGNIN button will be disabled
 
@@ -125,6 +128,10 @@ public class EmailVerification extends AppCompatActivity {
         @Override
         protected void onPreExecute()
         {
+            progressDialog = new ProgressDialog(EmailVerification.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
             // url of php script for handling post registration tasks
             url_registration_success=getString(R.string.ip_address)+"/eventuate/registration_success.php";
 
@@ -188,6 +195,7 @@ public class EmailVerification extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
+            progressDialog.hide();
             //Log.e("json",result);
             if((result.equals("")))
                 Toast.makeText(getApplicationContext(), "Registration Unsuccessful...Try again!!", Toast.LENGTH_LONG).show();

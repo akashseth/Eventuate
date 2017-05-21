@@ -182,7 +182,7 @@ public class BookingDetailsOrg extends AppCompatActivity {
             for(int i =0 ;i < jsonArray.length(); i++){
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String imagePath = getString(R.string.ip_address)+"/Eventuate/availabilityImages/";
+                String imagePath = getString(R.string.ip_address)+"/eventuate/availabilityImages/";
                 String imageName =  jsonObject.getString("image_location");
                 if(!imageName.equals("none")) {
                     imagesPathList.add(new AvailabilityImages(jsonObject.getInt("id"), imagePath + imageName));

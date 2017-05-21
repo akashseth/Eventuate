@@ -28,7 +28,7 @@ public class OrganiserAvailabilityActivity extends BaseActivityOrganiser {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organiser_availability);
         setIntentData();
-        FETCH_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/fetchAvailabilityOrganiser.php";
+        FETCH_AVAIL_URL = getString(R.string.ip_address)+"/eventuate/fetchAvailabilityOrganiser.php";
 
         new FetchAvailOrganiser().execute();
     }

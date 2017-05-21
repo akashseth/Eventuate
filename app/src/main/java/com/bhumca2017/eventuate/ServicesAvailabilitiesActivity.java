@@ -35,7 +35,7 @@ public class ServicesAvailabilitiesActivity extends BaseActivity {
         sessionServices = new SessionServices(this);
         mServiceProviderId = sessionServices.getUserId();
 
-        FETCH_Avail_LIST_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchServiceAvailabilities.php";
+        FETCH_Avail_LIST_URL = getString(R.string.ip_address)+"/eventuate/Services/FetchServiceAvailabilities.php";
 
         setServiceId();
 
