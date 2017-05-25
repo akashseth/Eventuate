@@ -277,10 +277,10 @@ public class AddAvailabilitiesActivity extends AppCompatActivity {
 
             Spinner availabilityList=(Spinner)findViewById(R.id.availability_list);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, mAvailabilities);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            adapter.setDropDownViewResource(R.layout.spinner_item);
             availabilityList.setAdapter(adapter);
            if(mAddedNewAvailability) {
-               Toast.makeText(getApplicationContext(),"new",Toast.LENGTH_LONG).show();
+               Toast.makeText(getApplicationContext(),"added new availability name",Toast.LENGTH_LONG).show();
                availabilityList.setSelection(mAvailabilities.size() - 1);
 
            }

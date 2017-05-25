@@ -1,6 +1,7 @@
 package com.bhumca2017.eventuate;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -89,6 +90,8 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
     boolean flagFromInput=false;     // true if 'from' time is being input, false otherwise
     boolean flagFrom=false;          // true if 'from' time is already input, false otherwise
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -372,7 +375,7 @@ public class EditEventDetails extends BaseActivityOrganiser {
             DatePickerDialog datePickerDialog = new DatePickerDialog(EditEventDetails.this, datePicker, myCalendar
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                     myCalendar.get(Calendar.DAY_OF_MONTH));
-            datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+            datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis()-10000);
             datePickerDialog.show();
 
     }
@@ -716,9 +719,14 @@ public class EditEventDetails extends BaseActivityOrganiser {
 
         String url_updateEventDetails, json_string, flag_val;
 
+
         @Override
         protected void onPreExecute()
         {
+            progressDialog = new ProgressDialog(EditEventDetails.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
             // url of php script for handling profile updation tasks for the organizer
             url_updateEventDetails=getString(R.string.ip_address)+"/eventuate/updateEventDetails.php";
 
@@ -798,6 +806,7 @@ public class EditEventDetails extends BaseActivityOrganiser {
         @Override
         protected void onPostExecute(String result) {
 
+            progressDialog.hide();
             if((result.equals("")))
                 Toast.makeText(getApplicationContext(), "Event details not updated...Try again!!", Toast.LENGTH_LONG).show();
             else {

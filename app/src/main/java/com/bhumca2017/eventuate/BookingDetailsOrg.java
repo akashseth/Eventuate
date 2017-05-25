@@ -55,9 +55,9 @@ public class BookingDetailsOrg extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FETCH_SERVICES_PROFILE_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchProfile.php";
+        FETCH_SERVICES_PROFILE_URL = getString(R.string.ip_address)+"/eventuate/Services/FetchProfile.php";
 
-        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/Eventuate/Services/FetchAvailImagesPath.php";
+        IMAGES_AVAIL_URL = getString(R.string.ip_address)+"/eventuate/Services/FetchAvailImagesPath.php";
 
 
         sessionOrganiser = new SessionOrganiser(this);

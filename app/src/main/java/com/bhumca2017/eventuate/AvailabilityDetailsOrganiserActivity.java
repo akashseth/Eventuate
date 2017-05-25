@@ -360,7 +360,7 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
             for(int i =0 ;i < jsonArray.length(); i++){
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String imagePath = getString(R.string.ip_address)+"/Eventuate/availabilityImages/";
+                String imagePath = getString(R.string.ip_address)+"/eventuate/availabilityImages/";
                 String imageName =  jsonObject.getString("image_location");
                 if(!imageName.equals("none")) {
                     imagesPathList.add(new AvailabilityImages(jsonObject.getInt("id"), imagePath + imageName));
@@ -409,6 +409,8 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<AvailabilityImages> images) {
             progressDialog.hide();
 
+
+            Log.e("images",images.size()+"");
             GridView imageGridView = (GridView)findViewById(R.id.avail_images_grid_list);
             if(images.isEmpty()) {
 
@@ -418,6 +420,7 @@ public class AvailabilityDetailsOrganiserActivity extends AppCompatActivity {
 
             } else {
 
+                Log.e("images",images.get(0).getImageLocation());
                 AvailabilityImagesAdapter adapter = new AvailabilityImagesAdapter(AvailabilityDetailsOrganiserActivity.this, images,"organiser");
                 imageGridView.setAdapter(adapter);
 

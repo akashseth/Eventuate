@@ -39,8 +39,8 @@ public class ServerRequestHandler {
 
         try {
             connection = (HttpURLConnection) url.openConnection();
-            connection.setReadTimeout(1000);
-            connection.setConnectTimeout(1500);
+            connection.setReadTimeout(100000);
+            connection.setConnectTimeout(150000);
             connection.setRequestMethod("GET");
             connection.connect();
 
@@ -78,7 +78,7 @@ public class ServerRequestHandler {
         try {
             connection = (HttpURLConnection) url.openConnection();
             connection.setReadTimeout(50000);
-            connection.setConnectTimeout(7000);
+            connection.setConnectTimeout(70000);
             connection.setRequestMethod("POST");
             //connection.connect();
 
