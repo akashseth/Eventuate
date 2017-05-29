@@ -1,6 +1,7 @@
 package com.bhumca2017.eventuate;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class EditSelectedExpenditure extends AppCompatActivity {
 
     String Date, Details; Integer Amount;
     Integer totalBudget;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +164,12 @@ public class EditSelectedExpenditure extends AppCompatActivity {
         {
             // url of php script for updating the expenditure details
             url_updateExpenditure=getString(R.string.ip_address)+"/eventuate/update_expenditure.php";
-            super.onPreExecute();
+            // url of php script for extracting the expenditure details
+            progressDialog = new ProgressDialog(EditSelectedExpenditure.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
         }
 
         @Override
@@ -226,7 +233,7 @@ public class EditSelectedExpenditure extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-
+            progressDialog.hide();
             String json_string, Email="";
             JSONObject jsonObject;
 

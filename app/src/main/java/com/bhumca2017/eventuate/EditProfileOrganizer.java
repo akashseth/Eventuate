@@ -115,7 +115,7 @@ public class EditProfileOrganizer extends BaseActivityOrganiser {
         protected void onPreExecute()
         {
             progressDialog = new ProgressDialog(EditProfileOrganizer.this);
-            progressDialog.setMessage("please wait...");
+            progressDialog.setMessage("Please wait...");
             progressDialog.setCancelable(false);
             progressDialog.show();
 

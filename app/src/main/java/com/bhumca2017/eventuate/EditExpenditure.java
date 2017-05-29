@@ -369,7 +369,11 @@ public class EditExpenditure extends BaseActivityOrganiser {
             protected void onPreExecute() {
                 // url of php script for delete the expenditure
                 url_deleteExpenditure = getString(R.string.ip_address) + "/eventuate/delete_expenditure.php";
-                super.onPreExecute();
+                // url of php script for extracting the expenditure details
+                progressDialog = new ProgressDialog(EditExpenditure.this);
+                progressDialog.setMessage("Please wait...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
             }
 
             @Override
@@ -428,7 +432,7 @@ public class EditExpenditure extends BaseActivityOrganiser {
             @Override
             protected void onPostExecute(String result) {
 
-
+                progressDialog.hide();
                 if(itemPosition!=-1){
                     sessionOrganiser.updateBudgetLeft(sessionOrganiser.getBudgetLeft()+Integer.parseInt(getItem(itemPosition).getAmount()));
                     leftBudget.setText("Rs. "+ sessionOrganiser.getBudgetLeft());
